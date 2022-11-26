@@ -6,6 +6,8 @@ def get_rpc_node_list(model_num):
     # return a dataframe containing all spanIDs and dictionary for all different RPC types
     my_span_list_df = pd.read_csv("data/V" + str(model_num) + "_mySpanDataDF.csv",
                                   encoding='latin-1', sep=',', keep_default_na=False)
+    
+    my_span_list_df_2 = my_span_list_df.values.tolist()
 
     # iterate through data frame
     # gather all unique microservice rpc pairs (src, dst)
@@ -15,60 +17,67 @@ def get_rpc_node_list(model_num):
     destinations = list(my_span_list_df['destination'].unique())
     print('Length of my span list',my_span_list_df.shape)
     print('Length of destination',len(destinations))
-    print('Length of Unique Tuples',len(uniqueTuples))
+    #print('Length of Unique Tuples',len(uniqueTuples))
+    source = 1
+    destination = 2
+    rpcCall = 3
+    rpcNumber = 4
 
+    
     # iterate through dataframe twice to discover src and dst pairs
-    for i, row in my_span_list_df.iterrows():
-
-        if i%10==0:
-            print("i:", str(i))
+    i = 0
+    for row in my_span_list_df_2:
+        i = i + 1
+        #if i%1000==0:
+        #    print("\ri:", str(i))
         # find first span of every trace
         # first node of tuple will have a null value for source
-        if row['source'] == '':
+        if row[source] == '':
             #print("source is empty i:", str(i))
-            null_tuple = (0, row['rpcNumber'])
+            null_tuple = (0, row[rpcNumber])
             if null_tuple not in rpc_node_dict.values():
-                rpc_node_dict[row['destination']] = null_tuple
+                rpc_node_dict[row[destination]] = null_tuple
                 rpc_df = rpc_df.append({
-                    'nodeID': str(row['destination']),
+                    'nodeID': str(row[destination]),
                     'source': '0',
-                    'destination': str(row['rpcNumber']),
+                    'destination': str(row[rpcNumber]),
                     'source_call': '',
-                    'destination_call': row['rpcCall']},
+                    'destination_call': row[rpcCall]},
                                      ignore_index=True)
                 continue #This is commented due to missing node pair
 
         # check for traces with no parent (source) span (see Jaeger and csv file)
-        if row['source'] not in destinations:
+        if row[source] not in destinations:
             #print("source is not in destinations i:", str(i))
-            start_tuple = (0, row['rpcNumber'])
+            start_tuple = (0, row[rpcNumber])
 
             if start_tuple not in rpc_node_dict.values():
-                rpc_node_dict[row['destination']] = start_tuple
+                rpc_node_dict[row[destination]] = start_tuple
                 rpc_df = rpc_df.append({
-                    'nodeID': str(row['destination']),
+                    'nodeID': str(row[destination]),
                     'source': '0',
-                    'destination': str(row['rpcNumber']),
+                    'destination': str(row[rpcNumber]),
                     'source_call': '',
-                    'destination_call': str(row['rpcCall'])},
+                    'destination_call': str(row[rpcCall])},
                                     ignore_index=True)
                 continue
 
         #print("just before double iteration i:", str(i))
-        for j, col in my_span_list_df.iterrows():
-            if j%10==0:
-                print('i=',i,'j=',j,row['destination'],col['source'])
-            if row['destination'] == col['source']:
-                row_tuple = (row['rpcNumber'], col['rpcNumber'])
+        #j = 0;
+        for col in my_span_list_df_2:
+            #if j%10==0:
+            #    print('i=',i,'j=',j,row['destination'],col['source'])
+            if row[destination] == col[source]:
+                row_tuple = (row[rpcNumber], col[rpcNumber])
                 #print(row_tuple)
                 if row_tuple not in rpc_node_dict.values():
-                    rpc_node_dict[col['destination']] = row_tuple
+                    rpc_node_dict[col[destination]] = row_tuple
                     rpc_df = rpc_df.append({
-                        'nodeID': str(col['destination']),
-                        'source': row['rpcNumber'],
-                        'destination': col['rpcNumber'],
-                        'source_call': row['rpcCall'],
-                        'destination_call': col['rpcCall']},
+                        'nodeID': str(col[destination]),
+                        'source': row[rpcNumber],
+                        'destination': col[rpcNumber],
+                        'source_call': row[rpcCall],
+                        'destination_call': col[rpcCall]},
                                          ignore_index=True)
                     continue
 

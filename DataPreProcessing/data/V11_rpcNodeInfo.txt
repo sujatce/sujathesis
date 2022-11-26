@@ -18,6 +18,6 @@ Time Difference in seconds: 58853
 Time Difference in milliseconds: 58853597
 Time Difference in microseconds: 58853597819
 
-No. of time windows: 200
-Size of time windows: 294267989 microseconds
-Size of time windows: 294268 milliseconds
+No. of time windows: 100
+Size of time windows: 588535978 microseconds
+Size of time windows: 588536 milliseconds

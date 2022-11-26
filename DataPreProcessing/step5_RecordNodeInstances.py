@@ -21,46 +21,59 @@ def return_node_instance_data(model_num):
 
     destinations = list(span_list_df['destination'].unique())
 
+    span_list_df_list = span_list_df.values.tolist()
+    
     # iterate through data frame twice to discover nodes
-    for i, row in span_list_df.iterrows():
+    i = 0
+    trace = 0
+    source = 1
+    destination = 2
+    rpcCall = 3
+    rpcNumber = 4
+    rpcStartTime = 5
+    rpcTimestamp = 6
+    
+    for row in span_list_df_list:
 
+        i = i + 1
         # declare initial zero value
         null_num = 0
-        row_num = row['rpcNumber']
+        row_num = row[rpcNumber]
 
-        #print("i: ", str(i))
+        #if i%1000 == 0:
+            #print("i: ", str(i))
 
         # look for microservice calls at the start of a trace with no source values
-        if row['source'] == '':
+        if row[source] == '':
             start_tuple = (null_num, row_num)
             key = list(nodes_dict.keys())[list(nodes_dict.values()).index(start_tuple)]
             # append node instance to data frame
-            node_values_df = node_values_df.append({'traceID': row['trace'],
+            node_values_df = node_values_df.append({'traceID': row[trace],
                                                     'nodeID': key,
                                                     'node_pair': start_tuple,
-                                                    'StartTime': row['rpcStartTime'],
-                                                    'Timestamp': row['rpcTimestamp']},
+                                                    'StartTime': row[rpcStartTime],
+                                                    'Timestamp': row[rpcTimestamp]},
                                                    ignore_index=True)
 
         # look for microservice spans with no listed parent spanID
-        elif row['source'] != '' and row['source'] not in destinations:
+        elif row[source] != '' and row[source] not in destinations:
             branch_tuple = (null_num, row_num)
             key = list(nodes_dict.keys())[list(nodes_dict.values()).index(branch_tuple)]
 
             # append node instance to data frame
-            node_values_df = node_values_df.append({'traceID': row['trace'],
+            node_values_df = node_values_df.append({'traceID': row[trace],
                                                     'nodeID': key,
                                                     'node_pair': branch_tuple,
-                                                    'StartTime': row['rpcStartTime'],
-                                                    'Timestamp': row['rpcTimestamp']},
+                                                    'StartTime': row[rpcStartTime],
+                                                    'Timestamp': row[rpcTimestamp]},
                                                    ignore_index=True)
 
-        for j, col in span_list_df.iterrows():
+        for col in span_list_df_list:
             #print('i=',i,'j=',j,row['destination'],col['source'])
-            col_num = col['rpcNumber']
+            col_num = col[rpcNumber]
 
             # check if row's destination matches col's source
-            if row['destination'] == col['source']:
+            if row[destination] == col[source]:
                 pair_value = (row_num, col_num)
                 #print('here is where it goes error',pair_value)
                 #print('i=',i,'j=',j)
@@ -68,11 +81,11 @@ def return_node_instance_data(model_num):
                 key = list(nodes_dict.keys())[list(nodes_dict.values()).index(pair_value)]
 
                 # append node instance to data frame
-                node_values_df = node_values_df.append({'traceID': col['trace'],
+                node_values_df = node_values_df.append({'traceID': col[trace],
                                                         'nodeID': key,
                                                         'node_pair': pair_value,
-                                                        'StartTime': col['rpcStartTime'],
-                                                        'Timestamp': col['rpcTimestamp']},
+                                                        'StartTime': col[rpcStartTime],
+                                                        'Timestamp': col[rpcTimestamp]},
                                                        ignore_index=True)
     return node_values_df
 

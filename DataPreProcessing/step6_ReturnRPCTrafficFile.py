@@ -75,22 +75,22 @@ def return_nodes_and_time_intervals(m_num, n_time_interval = 100):
     
     
     rnd_ts = 0
-    tmp_ts = first_ts
-    while tmp_ts < last_ts+1:
-        time_intervals.append(tmp_ts)
-        rnd_ts = tmp_ts
-        tmp_ts = tmp_ts + micro_interval_len
+    #tmp_ts = first_ts
+    #while tmp_ts < last_ts+1:
+     #   time_intervals.append(tmp_ts)
+      #  rnd_ts = tmp_ts
+       # tmp_ts = tmp_ts + micro_interval_len
         
     
-   # for ts in range(first_ts, last_ts+1):
+    for ts in range(first_ts, last_ts+1):
         #print(ts)
         #if ts==first_ts
             #ts = ts+micro_interval_len-1
-    #    if ts % micro_interval_len == 0:
-    #        print('adding ts ',ts)
-    #        time_intervals.append(ts)
+        if ts % micro_interval_len == 0:
+            #print('adding ts ',ts)
+            time_intervals.append(ts)
     #        ts = ts + micro_interval_len # This line is added to increase performance
-    #        rnd_ts = ts
+            rnd_ts = ts
 
     # (note) append additional timestamp value for any leftover traffic
     if rnd_ts < last_ts:
@@ -115,21 +115,27 @@ def compute_microservice_traffic(model_num,n_time_interval):
     # read in all occurrences of nodes into new dataframe
     node_instances_df = pd.read_csv('data/V'+str(model_num)+'_myRPCNodeInstancesDF.csv',
                                     encoding='latin-1', sep=',', keep_default_na=False)
+    node_instances_df_list = node_instances_df.values.tolist()
+    print('length = ',len(node_instances_df_list))
 
     # build a new data frame using node ids and last df columns
     node_traffic_df = pd.DataFrame(0, index=node_ids, columns=time_stamp_intervals)
-    print('node_traffic_df dimension:',node_traffic_df)
+    
+    #print('node_traffic_df dimension:',node_traffic_df)
 
+    nodeID = 2
+    StartTime = 4
     start_time_period = 0
     # compute and increment traffic in all different time periods one by one
     for end_time_interval in time_stamp_intervals:
-
-        for i, row in node_instances_df.iterrows():
-            if(i%1000==0):
-                print('processing time_interval:',end_time_interval,' with record no - ',i)
-            node_id = row['nodeID']
-            time_value = row['StartTime']
-
+        #i = 0
+        for row in node_instances_df_list:
+            #i = i + 1
+            node_id = row[nodeID]
+            time_value = row[StartTime]
+            #if(i%1000==0):
+                #print('processing time_interval:',end_time_interval,' with record no - ',i)
+                #print(node_id,time_value)
             # check if timestamp is within the outer time interval
             if time_value <= end_time_interval:
 
@@ -138,6 +144,7 @@ def compute_microservice_traffic(model_num,n_time_interval):
 
                     # increment instances of nodes by time period
                     node_traffic_df.at[node_id, end_time_interval] += 1
+                    #print('increment instances of nodes by time period',node_traffic_df.at[node_id, end_time_interval])
             else:
                 start_time_period = end_time_interval
                 break
