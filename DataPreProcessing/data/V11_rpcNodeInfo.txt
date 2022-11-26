@@ -1,0 +1,23 @@
+Test Number: 11
+
+Total Number of spans: 220
+Total Number of event types: 1
+Total number of traces: 220
+
+Number of different nodes: 1
+
+List of RPC nodes:
+b5f92c82e6ef98e2
+
+
+Temporal DATA
+
+First timestamp: 1669361909231510
+Final timestamp: 1669420762829329
+Time Difference in seconds: 58853
+Time Difference in milliseconds: 58853597
+Time Difference in microseconds: 58853597819
+
+No. of time windows: 200
+Size of time windows: 294267989 microseconds
+Size of time windows: 294268 milliseconds

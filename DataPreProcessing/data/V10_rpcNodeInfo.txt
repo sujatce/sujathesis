@@ -1,0 +1,55 @@
+Test Number: 10
+
+Total Number of spans: 110
+Total Number of event types: 26
+Total number of traces: 35
+
+Number of different nodes: 33
+
+List of RPC nodes:
+323a2fd57a4e56a2
+a9d8a913316b0f94
+2100b32f113f684
+2464fec13447797f
+c34531c007d111a9
+ef4185748d0f2156
+eb8c35c6a5cd37e6
+e4cf145c8ea1cd3a
+c7e0a2ba85b651a4
+7a6ea41b26ebcc4
+530b14c4f9bf7b27
+bfa974493b22dd67
+7ebbe7ac138f2558
+c27303e520525eac
+37a2fb3c321c1543
+2cd567b3c62d7475
+b798b4eb35a10bcc
+fa36456dc3a1ce20
+8b8bfd8476839464
+b4a7a192ed011c82
+c18cd25391f0815d
+d713a34f14750a92
+1241f1099b867419
+51a68a97beb95a4f
+f82edb1508d446cd
+f424aac946b7d849
+2d36a447d93e269b
+fb611f193e5455c3
+d1649d33ffcaf449
+451027a2bb3c5bfa
+c54b6be64b9c5196
+6fb3542c88a1ba73
+e336220512763b81
+
+
+Temporal DATA
+
+First timestamp: 1669360000000000.0
+Final timestamp: 1669360000000000.0
+Time Difference in seconds: 0
+Time Difference in milliseconds: 0
+Time Difference in microseconds: 0
+
+No. of time windows: 200
+Size of time windows: 0 microseconds
+Size of time windows: 0 milliseconds

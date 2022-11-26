@@ -1,0 +1,5 @@
+Test Number: 20
+
+Total Number of spans: 18368
+Total Number of event types: 48
+Total number of traces: 799
