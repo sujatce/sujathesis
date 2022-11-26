@@ -15,11 +15,12 @@ def get_rpc_node_list(model_num):
     destinations = list(my_span_list_df['destination'].unique())
     print('Length of my span list',my_span_list_df.shape)
     print('Length of destination',len(destinations))
+    print('Length of Unique Tuples',len(uniqueTuples))
 
     # iterate through dataframe twice to discover src and dst pairs
     for i, row in my_span_list_df.iterrows():
 
-        if i%1000==0:
+        if i%10==0:
             print("i:", str(i))
         # find first span of every trace
         # first node of tuple will have a null value for source
@@ -35,7 +36,7 @@ def get_rpc_node_list(model_num):
                     'source_call': '',
                     'destination_call': row['rpcCall']},
                                      ignore_index=True)
-                #continue #This is commented due to missing node pair
+                continue #This is commented due to missing node pair
 
         # check for traces with no parent (source) span (see Jaeger and csv file)
         if row['source'] not in destinations:
@@ -55,7 +56,8 @@ def get_rpc_node_list(model_num):
 
         #print("just before double iteration i:", str(i))
         for j, col in my_span_list_df.iterrows():
-            #print('i=',i,'j=',j,row['destination'],col['source'])
+            if j%10==0:
+                print('i=',i,'j=',j,row['destination'],col['source'])
             if row['destination'] == col['source']:
                 row_tuple = (row['rpcNumber'], col['rpcNumber'])
                 #print(row_tuple)

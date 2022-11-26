@@ -2,6 +2,13 @@ import pandas as pd
 import numpy as np
 from datetime import datetime
 
+def convert_func(val):
+    val = int(val)
+    d_value = datetime.fromtimestamp(float(val / 1000000))
+    #d_value = datetime.fromtimestamp(float(val / 1000))
+    return d_value
+
+
 # function used to return elapsed time between first and last time stamps
 # in seconds, milliseconds, microseconds
 def get_time_data(df):
@@ -27,7 +34,7 @@ def get_time_data(df):
     return time_diff_secs, time_diff_millis, time_diff_micro
 
 
-def return_nodes_and_time_intervals(m_num):
+def return_nodes_and_time_intervals(m_num, n_time_interval = 100):
 
     # read in span data to return time stamped data
     node_span_df = pd.read_csv("data/V" + str(m_num) + "_mySpanDataDF.csv",
@@ -40,13 +47,15 @@ def return_nodes_and_time_intervals(m_num):
     # get list of 160 timestamped intervals between first and lat timestamp
 
     # create a number of time windows
-    n_time_interval = 200
+    #n_time_interval = 100
     micro_interval_len = round(micro_time_data / n_time_interval)
     milli_interval_len = round(millis_time_data / n_time_interval)
 
     # fixed periods for input data are in microseconds (3.5 seconds)
     first_ts = node_span_df['rpcStartTime'][0]
     last_ts = node_span_df['rpcStartTime'][len(node_span_df)-1]
+    print('first_ts',first_ts)
+    print('last_ts',last_ts)
 
     with open("data/V" + str(m_num) + "_rpcNodeInfo.txt", "a") as file:
         file.write("\n\nTemporal DATA\n")
@@ -61,12 +70,27 @@ def return_nodes_and_time_intervals(m_num):
 
     # get the list of temporal intervals to discover fixed time periods
     time_intervals = list()
-
+    print(range(first_ts, last_ts+1))
+    print(micro_interval_len)
+    
+    
     rnd_ts = 0
-    for ts in range(first_ts, last_ts+1):
-        if ts % micro_interval_len == 0:
-            time_intervals.append(ts)
-            rnd_ts = ts
+    tmp_ts = first_ts
+    while tmp_ts < last_ts+1:
+        time_intervals.append(tmp_ts)
+        rnd_ts = tmp_ts
+        tmp_ts = tmp_ts + micro_interval_len
+        
+    
+   # for ts in range(first_ts, last_ts+1):
+        #print(ts)
+        #if ts==first_ts
+            #ts = ts+micro_interval_len-1
+    #    if ts % micro_interval_len == 0:
+    #        print('adding ts ',ts)
+    #        time_intervals.append(ts)
+    #        ts = ts + micro_interval_len # This line is added to increase performance
+    #        rnd_ts = ts
 
     # (note) append additional timestamp value for any leftover traffic
     if rnd_ts < last_ts:
@@ -77,27 +101,32 @@ def return_nodes_and_time_intervals(m_num):
 
 
 # helper function to compute the traffic of all microservice pair nodes at fixed time periods
-def compute_microservice_traffic(model_num):
+def compute_microservice_traffic(model_num,n_time_interval):
     # read in list of timestamp intervals
-    time_stamp_intervals = return_nodes_and_time_intervals(model_num)
-
+    print('get time intervals')
+    time_stamp_intervals = return_nodes_and_time_intervals(model_num,n_time_interval)
+    print('time_stamp_intervals - ',time_stamp_intervals)
+    print('length of time stamp intervals - ',len(time_stamp_intervals))
+    
     # get list of static nodes to build data frame x-axis
     with open("data/V"+str(model_num)+"_rpcPairNodes.txt", "r") as nodeReader:
         node_ids = nodeReader.read().strip().split(',')
 
     # read in all occurrences of nodes into new dataframe
-    node_instances_df = pd.read_csv('data/V'+str(model_number)+'_myRPCNodeInstancesDF.csv',
+    node_instances_df = pd.read_csv('data/V'+str(model_num)+'_myRPCNodeInstancesDF.csv',
                                     encoding='latin-1', sep=',', keep_default_na=False)
 
     # build a new data frame using node ids and last df columns
     node_traffic_df = pd.DataFrame(0, index=node_ids, columns=time_stamp_intervals)
+    print('node_traffic_df dimension:',node_traffic_df)
 
     start_time_period = 0
     # compute and increment traffic in all different time periods one by one
     for end_time_interval in time_stamp_intervals:
 
         for i, row in node_instances_df.iterrows():
-
+            if(i%1000==0):
+                print('processing time_interval:',end_time_interval,' with record no - ',i)
             node_id = row['nodeID']
             time_value = row['StartTime']
 
@@ -114,9 +143,9 @@ def compute_microservice_traffic(model_num):
                 break
     return node_traffic_df
 
-def step6(model_number):
+def step6(model_number,n_time_interval):
     print('step 6 started - compute the traffic of all microservice pair nodes at fixed time periods')
-    rpcNodeTrafficDF = compute_microservice_traffic(model_number)
+    rpcNodeTrafficDF = compute_microservice_traffic(model_number,n_time_interval)
     print('computing microservice traffic for temporal interval is completed')
 
     # replace columns of milliseconds values with corresponding timestamps
