@@ -3,7 +3,7 @@ import numpy as np
 import pickle
 
 # build a distance matrix for all RPC nodes
-def get_adjacency_matrix(model_num):
+def get_adjacency_matrix(model_num,out_filename):
 
     # read from csv file of static nodes (RPC call pairs) into a list
     static_nodes_list = pd.read_csv('data/V'+str(model_num)+'_step3_myStaticRPCNodeList.csv',
@@ -35,11 +35,12 @@ def get_adjacency_matrix(model_num):
     #adj_matrix.to_csv('data/V'+str(model_number)+'_adjacency_matrix.csv',
      #                sep=',', encoding='utf-8')
     np.savetxt(f"data/output/adjacency_matrix_V{model_num}.csv", adj_matrix, delimiter=",")
+    np.savetxt(out_filename, adj_matrix, delimiter=",")
     print('Adjacency Matrix is created')
     return adj_matrix
     
-def step4(model_number):
-    distanceMatrix = get_adjacency_matrix(model_number)
+def step4(model_number,out_filename):
+    distanceMatrix = get_adjacency_matrix(model_number,out_filename)
 
     # write the distance matrix to pickle file in byte form
     #with open('data/output/adj_mx_V'+str(model_number)+'.pkl', 'wb') as out_File:
