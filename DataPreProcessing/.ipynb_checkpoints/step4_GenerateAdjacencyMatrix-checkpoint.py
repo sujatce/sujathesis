@@ -34,7 +34,7 @@ def get_adjacency_matrix(model_num):
     #print(adj_matrix)
     #adj_matrix.to_csv('data/V'+str(model_number)+'_adjacency_matrix.csv',
      #                sep=',', encoding='utf-8')
-    np.savetxt(f"data/adjacency_matrix_V{model_num}.csv", adj_matrix, delimiter=",")
+    np.savetxt(f"data/output/adjacency_matrix_V{model_num}.csv", adj_matrix, delimiter=",")
     print('Adjacency Matrix is created')
     return adj_matrix
     

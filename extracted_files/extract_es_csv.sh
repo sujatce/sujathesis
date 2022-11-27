@@ -15,3 +15,6 @@ startTimeMillis: >now-2d
 
 
 /home/ubuntu/.local/bin/es2csv -q 'startTimeMillis:>now-2d' -f traceID spanID process.serviceName operationName startTimeMillis startTime tags references -S startTime -u http://54.197.37.208:9200 -i jaeger-span-2022-11-25 -D span -o /home/ubuntu/sujathesis/extracted_files/traffictrace.csv
+
+
+./wrk -D exp -t 5 -c 10 -d 125 -L -s ./scripts/social-network/compose-post.lua http://localhost:8080/wrk2-api/post/compose -R 10 & ./wrk -D exp -t 5 -c 10 -d 125 -L -s ./scripts/social-network/read-home-timeline.lua http://localhost:8080/wrk2-api/home-timeline/read -R 10 & ./wrk -D exp -t 5 -c 10 -d 125 -L -s ./scripts/social-network/read-user-timeline.lua http://localhost:8080/wrk2-api/user-timeline/read -R 10 & python3 /home/ubuntu/thesis/sujathesis/traffic_scripts/testscenario_1.py

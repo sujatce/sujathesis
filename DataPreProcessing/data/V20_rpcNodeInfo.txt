@@ -143,3 +143,15 @@ Time Difference in microseconds: 121974065
 No. of time windows: 100
 Size of time windows: 1219741 microseconds
 Size of time windows: 1220 milliseconds
+
+Temporal DATA
+
+First timestamp: 1635326802116000
+Final timestamp: 1635326924090065
+Time Difference in seconds: 121
+Time Difference in milliseconds: 121974
+Time Difference in microseconds: 121974065
+
+No. of time windows: 200
+Size of time windows: 609870 microseconds
+Size of time windows: 610 milliseconds
