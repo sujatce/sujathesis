@@ -36,6 +36,16 @@ async def login_user(session, addr, user):
     async with session.post(addr, data=payload) as response:
         return await response.text()
     
+async def login_user_for_batch(session, addr, user):
+
+    payload = {
+                'username': 'username_1',
+                'password': 'vol' + user+'97Chasm'
+            }
+        
+    async with session.post(addr, data=payload) as response:
+        return await response.text()
+    
 async def normal_traffic(url,loginurl):
 
     tasks = []
@@ -57,9 +67,11 @@ async def normal_traffic(url,loginurl):
                 if j%2==0:
                     task = asyncio.ensure_future(register_user(session, url, str(idx)))
                     tasks.append(task)
+                    print("User_"+str(idx) + " registered\n")
                 if j==1 or j==2 or j==3 or j==5:
                     task1 = asyncio.ensure_future(login_user(session, loginurl, str(idx)))
                     tasks.append(task1)
+                    print("User_"+str(idx) + " login\n")
                 resp = await asyncio.gather(*tasks)
                 print("User_"+str(idx) + " registered\n")
 
@@ -125,7 +137,7 @@ async def normal_login():
         time.sleep(1)
 
     
-async def batch_login():
+async def batch_login(url):
     tasks = []
     print("\n\nBatch Login Attack")
     conn = aiohttp.TCPConnector(limit=200)
@@ -133,7 +145,7 @@ async def batch_login():
 
         # prepare a batch login of 100 times
         for i in range(1, 100):
-            task = asyncio.ensure_future(login_user(session, url, str(i)))
+            task = asyncio.ensure_future(login_user_for_batch(session, url, str(i)))
             tasks.append(task)
             resp = await asyncio.gather(*tasks)
             print("User_"+str(i) + " login")
