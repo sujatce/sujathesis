@@ -77,6 +77,6 @@ Time Difference in seconds: 120
 Time Difference in milliseconds: 120651
 Time Difference in microseconds: 120651117
 
-No. of time windows: 100
-Size of time windows: 1206511 microseconds
-Size of time windows: 1207 milliseconds
+No. of time windows: 99
+Size of time windows: 1218698 microseconds
+Size of time windows: 1219 milliseconds

@@ -1,2 +1,2 @@
-model_checkpoint_path: "STGCN-8"
-all_model_checkpoint_paths: "STGCN-8"
+model_checkpoint_path: "STGCN-36"
+all_model_checkpoint_paths: "STGCN-36"
