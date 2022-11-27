@@ -21,4 +21,4 @@ startTimeMillis: >now-2d
 
 #### For viewing tensorboard grapsh
 pip install tensorboard
-tensorboard --logdir 
+tensorboard --logdir sujathesis/suja_stgcn/output/tensorboard/train
