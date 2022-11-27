@@ -73,7 +73,7 @@ async def normal_traffic(url,loginurl):
                     tasks.append(task1)
                     print("User_"+str(idx) + " login\n")
                 resp = await asyncio.gather(*tasks)
-                print("User_"+str(idx) + " registered\n")
+                print("User_"+str(idx) + " completed\n")
 
                 idx += 1
             time.sleep(5)
