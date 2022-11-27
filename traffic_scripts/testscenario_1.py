@@ -36,7 +36,7 @@ async def login_user(session, addr, user):
     async with session.post(addr, data=payload) as response:
         return await response.text()
     
-async def normal_registration(url):
+async def normal_traffic(url,loginurl):
 
     tasks = []
     print("Normal registration traffic")
@@ -46,15 +46,20 @@ async def normal_registration(url):
         # wait five seconds
         idx = 970
 
-        # register one or two new accounts every 5 seconds
+        #register one or two new accounts every 5 seconds
+        #login one to 4 logins every 5 seconds
         for i in range(24):
 
-            value = randint(1, 2)
+            value = randint(1, 5)
 
             for j in range(value):
 
-                task = asyncio.ensure_future(register_user(session, url, str(idx)))
-                tasks.append(task)
+                if j%2==0:
+                    task = asyncio.ensure_future(register_user(session, url, str(idx)))
+                    tasks.append(task)
+                if j==1 or j==2 or j==3 or j==5:
+                    task1 = asyncio.ensure_future(login_user(session, loginurl, str(idx)))
+                    tasks.append(task1)
                 resp = await asyncio.gather(*tasks)
                 print("User_"+str(idx) + " registered\n")
 
@@ -145,17 +150,17 @@ if __name__ == '__main__':
 
     # register normal users throughout data traffic
     loop = asyncio.get_event_loop()
-    future = asyncio.ensure_future(normal_registration(addr))
+    future = asyncio.ensure_future(normal_traffic(addr,login_addr))
     loop.run_until_complete(future)
     
     # register normal users throughout data traffic
-    loop = asyncio.get_event_loop()
-    future = asyncio.ensure_future(normal_login(login_addr))
-    loop.run_until_complete(future)
+    #loop = asyncio.get_event_loop()
+    #future = asyncio.ensure_future(normal_login(login_addr))
+    #loop.run_until_complete(future)
 
     # seed a batch registration of bot accounts
     loop = asyncio.get_event_loop()
-    future = asyncio.ensure_future(batch_login(addr))
+    future = asyncio.ensure_future(batch_login(login_addr))
     loop.run_until_complete(future)
 
     final_time = time.time()
