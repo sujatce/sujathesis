@@ -104,7 +104,13 @@ def step3(model_number):
 
     # write all node ids to a .txt file
     with open("data/V"+str(model_number)+"_rpcPairNodes.txt", 'w') as f:
+        totalLen = len(nodeIDsList)
+        i = 1
         for nodeID in nodeIDsList:
-            f.write("%s," % nodeID)
+            if i==totalLen:
+                f.write("%s" % nodeID)
+            else:
+                f.write("%s," % nodeID)
+            i = i + 1
     
     print('rpcPairNodes and myStaticRPCNodeList are created')

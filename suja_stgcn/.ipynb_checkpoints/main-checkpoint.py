@@ -23,10 +23,11 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--n_route', type=int, default=63)
 parser.add_argument('--n_his', type=int, default=12) #previous = 12
 parser.add_argument('--n_pred', type=int, default=9) #previous = 9
+test_number = 15
 day_slot = 25
 n_train, n_val, n_test = 2, 1, 1
 parser.add_argument('--batch_size', type=int, default=5)
-parser.add_argument('--epoch', type=int, default=5)
+parser.add_argument('--epoch', type=int, default=50)
 parser.add_argument('--save', type=int, default=1)
 parser.add_argument('--ks', type=int, default=3)
 parser.add_argument('--kt', type=int, default=3)
@@ -45,7 +46,7 @@ blocks = [[1, 32, 64], [64, 32, 128]]
 
 # Load wighted adjacency matrix W
 if args.graph == 'default':
-    W = weight_matrix(pjoin('./dataset', f'ms_traffic_W_{n}.csv'))
+    W = weight_matrix(pjoin('./dataset', f'ms_traffic_W_{test_number}.csv'))
 else:
     # load customized graph weight matrix
     W = weight_matrix(pjoin('./dataset', args.graph))
@@ -64,7 +65,7 @@ np.savetxt("cheb_poly.csv", Lk, delimiter=",")
 tf.add_to_collection(name='graph_kernel', value=tf.cast(tf.constant(Lk), tf.float32))
 
 # Data Preprocessing
-data_file = f'ms_traffic_V_{n}.csv'
+data_file = f'ms_traffic_V_{test_number}.csv'
 #n_train, n_val, n_test = 34, 5, 5
 
 input_data = data_gen(pjoin('./dataset', data_file), (n_train, n_val, n_test), n, n_his + n_pred,day_slot)

@@ -150,7 +150,7 @@ def compute_microservice_traffic(model_num,n_time_interval):
                 break
     return node_traffic_df
 
-def step6(model_number,n_time_interval):
+def step6(model_number,n_time_interval,out_filename):
     print('step 6 started - compute the traffic of all microservice pair nodes at fixed time periods')
     rpcNodeTrafficDF = compute_microservice_traffic(model_number,n_time_interval)
     print('computing microservice traffic for temporal interval is completed')
@@ -174,5 +174,7 @@ def step6(model_number,n_time_interval):
 
     rpcNodeTrafficDF.to_csv('data/output/ms_traffic_V'+str(model_number)+'.csv',
                             sep=',', encoding='utf-8', index_label='node_ID')
+    rpcNodeTrafficDF.to_csv(out_filename,
+                            sep=',', encoding='utf-8',header=False,index=False)
 
     print('Successfully created temporal traffic file')
