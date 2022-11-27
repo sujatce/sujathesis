@@ -1,0 +1,5 @@
+ubuntu@ip-172-31-81-72:~$ /home/ubuntu/.local/bin/es2csv -q 'startTimeMillis:>now-25m' -f traceID spanID process.serviceName operationName startTimeMillis startTime tags references -S startTime -u http://54.197.37.208:9200 -i jaeger-span-2022-11-27 -D span -o /home/ubuntu/sujathesis/DataPreProcessing/data/input/trafficData_V30.csv
+Found 12090 results.
+Run query [###########################################################################################] [12090/12090] [100%] [0:00:01] [Time: 0:00:01] [  7.4 Kidocs/s]
+Write to csv [#######################################################################################] [12090/12090] [100%] [0:00:01] [Time: 0:00:01] [  6.8 Kilines/s]
+ubuntu@ip-172-31-81-72:~$
