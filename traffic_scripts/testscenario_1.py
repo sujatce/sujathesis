@@ -64,7 +64,7 @@ async def normal_traffic(url,loginurl):
 
             for j in range(value):
 
-                if j%2==0:
+                if j%4==0:
                     task = asyncio.ensure_future(register_user(session, url, str(idx)))
                     tasks.append(task)
                     print("User_"+str(idx) + " registered\n")
