@@ -1,0 +1,81 @@
+Test Number: 30
+
+Total Number of spans: 12090
+Total Number of event types: 53
+Total number of traces: 814
+
+Number of different nodes: 59
+
+List of RPC nodes:
+145309cfc6db0061
+72c328da7b139d5d
+b159fde6d4f1f91
+19cd819d0568141f
+a83ed872b2a98f4e
+6c2a4816041f3e62
+2779a53d7c8100f2
+cf6facff3fdc055a
+f12606b8e678bb2f
+6c2b5fa60b0c4192
+f6d7f532cfe70ae0
+c3d3a45f1803b472
+b71d652a09a3b99a
+1734356e087f71f4
+ae34189aa4dd73b7
+20296fd4a20fbdef
+5b2a983034edf793
+e4897539c91e08a3
+1891269a31247b78
+dbef5a85b1a0f7c
+c0d3103705f8196
+ee80b2836f7d8427
+1e8e1e0938c1c4ac
+14d54c0b84890fe7
+d1264e5e9e530e4f
+9a0b81a25abfa0f1
+5055e483e5e82065
+c05a27aff4531266
+36fc27b087544830
+249e1d93a589d8bf
+5f50bb91d32803fd
+3e5ec9d0e6cbfb3
+b298f36ee2e9c57b
+c12589d46efcdb70
+c5331ef0c70cfc45
+cef12523d7c167b7
+483328b17db5d017
+2cffcffaa43aeb11
+3e80d6c13763ee61
+a7a02aa6a2d88870
+2f51cce22546682d
+f1abe000b076587
+5ca6648289d87072
+600ceb93ad069d17
+89fbf0addf439bdb
+25e0085449c77b9d
+70a6422170921903
+86504414bcf4f06c
+5c37ec1b4412154a
+4b8990938c97ba8a
+5a4c2c344f17ae9b
+1eef6348210ede22
+cc38e2702498002
+b1e505c3b0950fc
+42beb55bf9e2cfa
+d0dacccabed02ffa
+7b050010b243913f
+23ceaa51c11f8d10
+89caf33fb778def2
+
+
+Temporal DATA
+
+First timestamp: 1669540939000000
+Final timestamp: 1669541058788506
+Time Difference in seconds: 119
+Time Difference in milliseconds: 119788
+Time Difference in microseconds: 119788506
+
+No. of time windows: 199
+Size of time windows: 601952 microseconds
+Size of time windows: 602 milliseconds
