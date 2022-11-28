@@ -172,9 +172,9 @@ def step6(model_number,n_time_interval,out_filename):
     # assign the datetime objects to the fixed time periods
     rpcNodeTrafficDF.columns = date_time_list
 
-    rpcNodeTrafficDF.to_csv('data/output/ms_traffic_V'+str(model_number)+'.csv',
+    rpcNodeTrafficDF.T.to_csv('data/output/ms_traffic_V'+str(model_number)+'.csv',
                             sep=',', encoding='utf-8', index_label='node_ID')
-    rpcNodeTrafficDF.to_csv(out_filename,
+    rpcNodeTrafficDF.T.to_csv(out_filename,
                             sep=',', encoding='utf-8',header=False,index=False)
 
     print('Successfully created temporal traffic file')

@@ -105,7 +105,7 @@ def model_train(inputs, blocks, args, sum_path='./output/tensorboard'):
             if inf_mode == 'sep':
                 va, te = min_va_val, min_val
                 print(f'Time Step {tmp_idx}: '
-                      f'MAPE {va[0]:7.3%}, {te[0]:7.3%}; '
+                      f'MAPE {va[0]:7.3f}, {te[0]:7.3f}; '
                       f'MAE  {va[1]:4.3f}, {te[1]:4.3f}; '
                       f'RMSE {va[2]:6.3f}, {te[2]:6.3f}.')
                 
@@ -115,7 +115,7 @@ def model_train(inputs, blocks, args, sum_path='./output/tensorboard'):
                     print(va)
                     print(te)
                     print(f'Time Step {ix + 1}: '
-                          f'MAPE {va[0]:7.3%}, {te[0]:7.3%}; '
+                          f'MAPE {va[0]:7.3f}, {te[0]:7.3f}; '
                           f'MAE  {va[1]:4.3f}, {te[1]:4.3f}; '
                           f'RMSE {va[2]:6.3f}, {te[2]:6.3f}.')
                     

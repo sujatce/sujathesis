@@ -20,12 +20,12 @@ from models.tester import model_test
 import argparse
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--n_route', type=int, default=63)
+parser.add_argument('--n_route', type=int, default=59)
 parser.add_argument('--n_his', type=int, default=12) #previous = 12
 parser.add_argument('--n_pred', type=int, default=9) #previous = 9
-test_number = 15
+test_number = 30
 day_slot = 25
-n_train, n_val, n_test = 2, 1, 1
+n_train, n_val, n_test = 6, 1, 1
 parser.add_argument('--batch_size', type=int, default=5)
 parser.add_argument('--epoch', type=int, default=50)
 parser.add_argument('--save', type=int, default=1)

@@ -1,0 +1,851 @@
+ubuntu@ip-172-31-22-241:~/thesis/DeathStarBench/socialNetwork/wrk2$ ./wrk -D exp -t 10 -c 20 -d 120 -L -s ./scripts/social-network/compose-post.lua http://localhost:8080/wrk2-api/post/compose -R 10 & ./wrk -D exp -t 10 -c 20 -d 120 -L -s ./scripts/social-network/read-home-timeline.lua http://localhost:8080/wrk2-api/home-timeline/read -R 10 & ./wrk -D exp -t 10 -c 20 -d 120 -L -s ./scripts/social-network/read-user-timeline.lua http://localhost:8080/wrk2-api/user-timeline/read -R 10 & python3 /home/ubuntu/thesis/sujathesis/traffic_scripts/testscenario_1.py
+[1] 566249
+[2] 566250
+[3] 566251
+Running 2m test @ http://localhost:8080/wrk2-api/post/compose
+  10 threads and 20 connections
+Running 2m test @ http://localhost:8080/wrk2-api/user-timeline/read
+  10 threads and 20 connections
+Running 2m test @ http://localhost:8080/wrk2-api/home-timeline/read
+  10 threads and 20 connections
+/home/ubuntu/thesis/sujathesis/traffic_scripts/testscenario_1.py:164: DeprecationWarning: There is no current event loop
+  loop = asyncio.get_event_loop()
+/home/ubuntu/thesis/sujathesis/traffic_scripts/testscenario_1.py:165: DeprecationWarning: There is no current event loop
+  future = asyncio.ensure_future(normal_traffic(addr,login_addr))
+Normal registration traffic
+User_970 registered
+User_971 login
+User_972 registered
+User_973 login
+  Thread calibration: mean lat.: 8.288ms, rate sampling interval: 20ms
+  Thread calibration: mean lat.: 8.123ms, rate sampling interval: 17ms
+  Thread calibration: mean lat.: 13.207ms, rate sampling interval: 44ms
+  Thread calibration: mean lat.: 7.069ms, rate sampling interval: 16ms
+  Thread calibration: mean lat.: 8.800ms, rate sampling interval: 21ms
+  Thread calibration: mean lat.: 8.201ms, rate sampling interval: 21ms
+  Thread calibration: mean lat.: 7.166ms, rate sampling interval: 16ms
+  Thread calibration: mean lat.: 8.458ms, rate sampling interval: 17ms
+  Thread calibration: mean lat.: 8.255ms, rate sampling interval: 20ms
+  Thread calibration: mean lat.: 10.861ms, rate sampling interval: 28ms
+  Thread calibration: mean lat.: 5.462ms, rate sampling interval: 17ms
+  Thread calibration: mean lat.: 4.471ms, rate sampling interval: 14ms
+  Thread calibration: mean lat.: 7.465ms, rate sampling interval: 17ms
+  Thread calibration: mean lat.: 9.738ms, rate sampling interval: 24ms
+  Thread calibration: mean lat.: 7.017ms, rate sampling interval: 16ms
+  Thread calibration: mean lat.: 8.045ms, rate sampling interval: 24ms
+  Thread calibration: mean lat.: 7.500ms, rate sampling interval: 17ms
+  Thread calibration: mean lat.: 7.518ms, rate sampling interval: 25ms
+  Thread calibration: mean lat.: 9.790ms, rate sampling interval: 21ms
+  Thread calibration: mean lat.: 7.749ms, rate sampling interval: 22ms
+  Thread calibration: mean lat.: 9.021ms, rate sampling interval: 16ms
+  Thread calibration: mean lat.: 7.593ms, rate sampling interval: 19ms
+  Thread calibration: mean lat.: 7.349ms, rate sampling interval: 18ms
+  Thread calibration: mean lat.: 6.987ms, rate sampling interval: 17ms
+  Thread calibration: mean lat.: 8.220ms, rate sampling interval: 24ms
+  Thread calibration: mean lat.: 10.534ms, rate sampling interval: 38ms
+  Thread calibration: mean lat.: 7.821ms, rate sampling interval: 20ms
+  Thread calibration: mean lat.: 7.789ms, rate sampling interval: 23ms
+  Thread calibration: mean lat.: 7.381ms, rate sampling interval: 17ms
+  Thread calibration: mean lat.: 7.113ms, rate sampling interval: 18ms
+User_974 registered
+User_975 login
+User_976 login
+User_977 login
+User_978 registered
+User_979 registered
+User_980 registered
+User_981 registered
+User_982 login
+User_983 login
+User_984 login
+User_985 registered
+User_986 registered
+User_987 login
+User_988 registered
+User_989 login
+User_990 login
+User_991 registered
+User_992 login
+User_993 login
+User_994 registered
+User_995 login
+User_996 registered
+User_997 login
+User_998 login
+User_999 registered
+User_1000 login
+User_1001 login
+User_1002 login
+User_1003 registered
+User_1004 login
+User_1005 login
+User_1006 login
+User_1007 registered
+User_1008 registered
+User_1009 registered
+User_1010 login
+User_1011 registered
+User_1012 login
+User_1013 registered
+User_1014 login
+User_1015 login
+User_1016 login
+User_1017 registered
+User_1018 login
+User_1019 login
+User_1020 registered
+User_1021 registered
+User_1022 login
+User_1023 registered
+User_1024 login
+User_1025 login
+User_1026 login
+User_1027 registered
+User_1028 registered
+User_1029 login
+User_1030 login
+User_1031 login
+/home/ubuntu/thesis/sujathesis/traffic_scripts/testscenario_1.py:174: DeprecationWarning: There is no current event loop
+  loop = asyncio.get_event_loop()
+/home/ubuntu/thesis/sujathesis/traffic_scripts/testscenario_1.py:175: DeprecationWarning: There is no current event loop
+  future = asyncio.ensure_future(batch_login(login_addr))
+
+
+Batch Login Attack
+User_1 login
+User_2 login
+User_3 login
+User_4 login
+User_5 login
+User_6 login
+User_7 login
+User_8 login
+User_9 login
+User_10 login
+User_11 login
+User_12 login
+User_13 login
+User_14 login
+User_15 login
+User_16 login
+User_17 login
+User_18 login
+User_19 login
+User_20 login
+User_21 login
+User_22 login
+User_23 login
+User_24 login
+User_25 login
+User_26 login
+User_27 login
+User_28 login
+User_29 login
+User_30 login
+User_31 login
+User_32 login
+User_33 login
+User_34 login
+User_35 login
+User_36 login
+User_37 login
+User_38 login
+User_39 login
+User_40 login
+User_41 login
+User_42 login
+User_43 login
+User_44 login
+User_45 login
+User_46 login
+User_47 login
+User_48 login
+User_49 login
+User_50 login
+User_51 login
+User_52 login
+User_53 login
+User_54 login
+User_55 login
+User_56 login
+User_57 login
+User_58 login
+User_59 login
+User_60 login
+User_61 login
+User_62 login
+User_63 login
+User_64 login
+User_65 login
+User_66 login
+User_67 login
+User_68 login
+User_69 login
+User_70 login
+User_71 login
+User_72 login
+User_73 login
+User_74 login
+User_75 login
+User_76 login
+User_77 login
+User_78 login
+User_79 login
+User_80 login
+User_81 login
+User_82 login
+User_83 login
+User_84 login
+User_85 login
+User_86 login
+User_87 login
+User_88 login
+User_89 login
+User_90 login
+User_91 login
+User_92 login
+User_93 login
+User_94 login
+User_95 login
+User_96 login
+User_97 login
+User_98 login
+User_99 login
+User_100 login
+User_101 login
+User_102 login
+User_103 login
+User_104 login
+User_105 login
+User_106 login
+User_107 login
+User_108 login
+User_109 login
+User_110 login
+User_111 login
+User_112 login
+User_113 login
+User_114 login
+User_115 login
+User_116 login
+User_117 login
+User_118 login
+User_119 login
+User_120 login
+User_121 login
+User_122 login
+User_123 login
+User_124 login
+User_125 login
+User_126 login
+User_127 login
+User_128 login
+User_129 login
+User_130 login
+User_131 login
+User_132 login
+User_133 login
+User_134 login
+User_135 login
+User_136 login
+User_137 login
+User_138 login
+User_139 login
+User_140 login
+User_141 login
+User_142 login
+User_143 login
+User_144 login
+User_145 login
+User_146 login
+User_147 login
+User_148 login
+User_149 login
+User_150 login
+User_151 login
+User_152 login
+User_153 login
+User_154 login
+User_155 login
+User_156 login
+User_157 login
+User_158 login
+User_159 login
+User_160 login
+User_161 login
+User_162 login
+User_163 login
+User_164 login
+User_165 login
+User_166 login
+User_167 login
+User_168 login
+User_169 login
+User_170 login
+User_171 login
+User_172 login
+User_173 login
+User_174 login
+User_175 login
+User_176 login
+User_177 login
+User_178 login
+User_179 login
+User_180 login
+User_181 login
+User_182 login
+User_183 login
+User_184 login
+User_185 login
+User_186 login
+User_187 login
+User_188 login
+User_189 login
+User_190 login
+User_191 login
+User_192 login
+User_193 login
+User_194 login
+User_195 login
+User_196 login
+User_197 login
+User_198 login
+User_199 login
+User_200 login
+User_201 login
+User_202 login
+User_203 login
+User_204 login
+User_205 login
+User_206 login
+User_207 login
+User_208 login
+User_209 login
+User_210 login
+User_211 login
+User_212 login
+User_213 login
+User_214 login
+User_215 login
+User_216 login
+User_217 login
+User_218 login
+User_219 login
+User_220 login
+User_221 login
+User_222 login
+User_223 login
+User_224 login
+User_225 login
+User_226 login
+User_227 login
+User_228 login
+User_229 login
+User_230 login
+User_231 login
+User_232 login
+User_233 login
+User_234 login
+User_235 login
+User_236 login
+User_237 login
+User_238 login
+User_239 login
+User_240 login
+User_241 login
+User_242 login
+User_243 login
+User_244 login
+User_245 login
+User_246 login
+User_247 login
+User_248 login
+User_249 login
+User_250 login
+User_251 login
+User_252 login
+User_253 login
+User_254 login
+User_255 login
+User_256 login
+User_257 login
+User_258 login
+User_259 login
+User_260 login
+User_261 login
+User_262 login
+User_263 login
+User_264 login
+User_265 login
+User_266 login
+User_267 login
+User_268 login
+User_269 login
+User_270 login
+User_271 login
+User_272 login
+User_273 login
+User_274 login
+User_275 login
+User_276 login
+User_277 login
+User_278 login
+User_279 login
+User_280 login
+User_281 login
+User_282 login
+User_283 login
+User_284 login
+User_285 login
+User_286 login
+User_287 login
+User_288 login
+User_289 login
+User_290 login
+User_291 login
+User_292 login
+User_293 login
+User_294 login
+User_295 login
+User_296 login
+User_297 login
+User_298 login
+User_299 login
+User_300 login
+User_301 login
+User_302 login
+User_303 login
+User_304 login
+User_305 login
+User_306 login
+User_307 login
+User_308 login
+User_309 login
+User_310 login
+User_311 login
+User_312 login
+User_313 login
+User_314 login
+User_315 login
+User_316 login
+User_317 login
+User_318 login
+User_319 login
+User_320 login
+User_321 login
+User_322 login
+User_323 login
+User_324 login
+User_325 login
+User_326 login
+User_327 login
+User_328 login
+User_329 login
+User_330 login
+User_331 login
+User_332 login
+User_333 login
+User_334 login
+User_335 login
+User_336 login
+User_337 login
+User_338 login
+User_339 login
+User_340 login
+User_341 login
+User_342 login
+User_343 login
+User_344 login
+User_345 login
+User_346 login
+User_347 login
+User_348 login
+User_349 login
+User_350 login
+User_351 login
+User_352 login
+User_353 login
+User_354 login
+User_355 login
+User_356 login
+User_357 login
+User_358 login
+User_359 login
+User_360 login
+User_361 login
+User_362 login
+User_363 login
+User_364 login
+User_365 login
+User_366 login
+User_367 login
+User_368 login
+User_369 login
+User_370 login
+User_371 login
+User_372 login
+User_373 login
+User_374 login
+User_375 login
+User_376 login
+User_377 login
+User_378 login
+User_379 login
+User_380 login
+User_381 login
+User_382 login
+User_383 login
+User_384 login
+User_385 login
+User_386 login
+User_387 login
+User_388 login
+User_389 login
+User_390 login
+User_391 login
+User_392 login
+User_393 login
+User_394 login
+User_395 login
+User_396 login
+User_397 login
+User_398 login
+User_399 login
+User_400 login
+User_401 login
+User_402 login
+User_403 login
+User_404 login
+User_405 login
+User_406 login
+User_407 login
+User_408 login
+User_409 login
+User_410 login
+User_411 login
+User_412 login
+User_413 login
+User_414 login
+User_415 login
+User_416 login
+User_417 login
+User_418 login
+User_419 login
+User_420 login
+User_421 login
+User_422 login
+User_423 login
+User_424 login
+User_425 login
+User_426 login
+User_427 login
+User_428 login
+User_429 login
+User_430 login
+User_431 login
+User_432 login
+User_433 login
+User_434 login
+User_435 login
+User_436 login
+User_437 login
+User_438 login
+User_439 login
+User_440 login
+User_441 login
+User_442 login
+User_443 login
+User_444 login
+User_445 login
+User_446 login
+User_447 login
+User_448 login
+User_449 login
+User_450 login
+User_451 login
+User_452 login
+User_453 login
+User_454 login
+User_455 login
+User_456 login
+User_457 login
+User_458 login
+User_459 login
+User_460 login
+User_461 login
+User_462 login
+User_463 login
+User_464 login
+User_465 login
+User_466 login
+User_467 login
+User_468 login
+User_469 login
+User_470 login
+User_471 login
+User_472 login
+User_473 login
+User_474 login
+User_475 login
+User_476 login
+User_477 login
+User_478 login
+User_479 login
+User_480 login
+User_481 login
+User_482 login
+User_483 login
+User_484 login
+User_485 login
+User_486 login
+User_487 login
+User_488 login
+User_489 login
+User_490 login
+User_491 login
+User_492 login
+User_493 login
+User_494 login
+User_495 login
+User_496 login
+User_497 login
+User_498 login
+User_499 login
+499
+Total Time: 118 seconds
+ubuntu@ip-172-31-22-241:~/thesis/DeathStarBench/socialNetwork/wrk2$   Thread Stats   Avg      Stdev     99%   +/- Stdev
+    Latency     7.82ms    2.55ms  19.45ms   91.72%
+    Req/Sec     1.04      7.55    52.00     98.05%
+  Latency Distribution (HdrHistogram - Recorded Latency)
+ 50.000%    7.05ms
+ 75.000%    7.96ms
+ 90.000%    9.91ms
+ 99.000%   19.45ms
+ 99.900%   29.36ms
+ 99.990%   32.51ms
+ 99.999%   32.51ms
+100.000%   32.51ms
+
+  Detailed Percentile spectrum:
+       Value   Percentile   TotalCount 1/(1-Percentile)
+
+       5.227     0.000000            1         1.00
+       6.283     0.100000          113         1.11
+       6.543     0.200000          228         1.25
+       6.719     0.300000          337         1.43
+       6.875     0.400000          450         1.67
+       7.051     0.500000          563         2.00
+       7.167     0.550000          618         2.22
+       7.323     0.600000          674         2.50
+       7.515     0.650000          731         2.86
+       7.719     0.700000          788         3.33
+       7.963     0.750000          843         4.00
+       8.199     0.775000          871         4.44
+       8.439     0.800000          899         5.00
+       8.775     0.825000          927         5.71
+       9.063     0.850000          957         6.67
+       9.503     0.875000          983         8.00
+       9.695     0.887500          997         8.89
+       9.911     0.900000         1011        10.00
+      10.191     0.912500         1026        11.43
+      10.615     0.925000         1039        13.33
+      11.039     0.937500         1054        16.00
+      11.263     0.943750         1060        17.78
+      11.535     0.950000         1067        20.00
+      12.007     0.956250         1074        22.86
+      12.447     0.962500         1082        26.67
+      13.415     0.968750         1088        32.00
+      14.295     0.971875         1092        35.56
+      14.767     0.975000         1095        40.00
+      15.335     0.978125         1099        45.71
+      15.727     0.981250         1102        53.33
+      17.231     0.984375         1106        64.00
+      18.191     0.985938         1108        71.11
+      18.383     0.987500         1109        80.00
+      19.247     0.989062         1111        91.43
+      19.951     0.990625         1113       106.67
+      20.511     0.992188         1115       128.00
+      22.815     0.992969         1116       142.22
+      22.815     0.993750         1116       160.00
+      24.943     0.994531         1117       182.86
+      25.327     0.995313         1118       213.33
+      26.927     0.996094         1119       256.00
+      27.039     0.996484         1120       284.44
+      27.039     0.996875         1120       320.00
+      27.039     0.997266         1120       365.71
+      29.279     0.997656         1121       426.67
+      29.279     0.998047         1121       512.00
+      29.359     0.998242         1122       568.89
+      29.359     0.998437         1122       640.00
+      29.359     0.998633         1122       731.43
+      29.359     0.998828         1122       853.33
+      29.359     0.999023         1122      1024.00
+      32.511     0.999121         1123      1137.78
+      32.511     1.000000         1123          inf
+#[Mean    =        7.823, StdDeviation   =        2.552]
+#[Max     =       32.496, Total count    =         1123]
+#[Buckets =           27, SubBuckets     =         2048]
+----------------------------------------------------------
+  1236 requests in 2.00m, 259.51KB read
+  Socket errors: connect 0, read 0, write 0, timeout 434
+Requests/sec:     10.30
+Transfer/sec:      2.16KB
+  Thread Stats   Avg      Stdev     99%   +/- Stdev
+    Latency     6.87ms    3.47ms  17.33ms   65.06%
+    Req/Sec     1.04      7.45    55.00     97.96%
+  Latency Distribution (HdrHistogram - Recorded Latency)
+ 50.000%    7.50ms
+ 75.000%    8.46ms
+ 90.000%   10.65ms
+ 99.000%   17.33ms
+ 99.900%   23.20ms
+ 99.990%   25.38ms
+ 99.999%   25.38ms
+100.000%   25.38ms
+
+  Detailed Percentile spectrum:
+       Value   Percentile   TotalCount 1/(1-Percentile)
+
+       1.659     0.000000            1         1.00
+       2.221     0.100000          113         1.11
+       2.435     0.200000          225         1.25
+  Thread Stats   Avg      Stdev     99%   +/- Stdev
+       5.419     0.300000          337         1.43
+       6.895     0.400000          450         1.67
+       7.499     0.500000          561         2.00
+       7.691     0.550000          619         2.22
+       7.895     0.600000          676         2.50
+       8.063     0.650000          730         2.86
+       8.271     0.700000          792         3.33
+       8.463     0.750000          844         4.00
+    Latency     7.35ms    2.70ms  19.33ms   89.49%
+    Req/Sec     1.04      7.38    52.00     98.00%
+  Latency Distribution (HdrHistogram - Recorded Latency)
+       8.583     0.775000          870         4.44
+       8.767     0.800000          900         5.00
+       8.911     0.825000          926         5.71
+       9.215     0.850000          954         6.67
+       9.655     0.875000          982         8.00
+      10.287     0.887500          996         8.89
+      10.647     0.900000         1010        10.00
+      10.919     0.912500         1024        11.43
+      11.383     0.925000         1038        13.33
+      11.791     0.937500         1052        16.00
+      12.287     0.943750         1059        17.78
+      12.711     0.950000         1067        20.00
+      12.991     0.956250         1073        22.86
+      13.407     0.962500         1080        26.67
+      13.815     0.968750         1087        32.00
+      14.591     0.971875         1091        35.56
+      14.903     0.975000         1094        40.00
+      15.351     0.978125         1098        45.71
+      15.847     0.981250         1101        53.33
+      16.591     0.984375         1105        64.00
+      16.703     0.985938         1107        71.11
+      16.767     0.987500         1108        80.00
+      17.167     0.989062         1110        91.43
+      17.567     0.990625         1112       106.67
+      18.783     0.992188         1114       128.00
+      19.007     0.992969         1115       142.22
+      19.007     0.993750         1115       160.00
+      19.327     0.994531         1116       182.86
+      20.159     0.995313         1117       213.33
+      20.351     0.996094         1118       256.00
+      20.431     0.996484         1119       284.44
+      20.431     0.996875         1119       320.00
+      20.431     0.997266         1119       365.71
+      21.999     0.997656         1120       426.67
+      21.999     0.998047         1120       512.00
+      23.199     0.998242         1121       568.89
+      23.199     0.998437         1121       640.00
+      23.199     0.998633         1121       731.43
+      23.199     0.998828         1121       853.33
+      23.199     0.999023         1121      1024.00
+      25.375     0.999121         1122      1137.78
+      25.375     1.000000         1122          inf
+ 50.000%    6.61ms
+ 75.000%    7.61ms
+ 90.000%   10.20ms
+#[Mean    =        6.874, StdDeviation   =        3.470]
+#[Max     =       25.360, Total count    =         1122]
+#[Buckets =           27, SubBuckets     =         2048]
+----------------------------------------------------------
+  1234 requests in 2.00m, 11.79MB read
+  Socket errors: connect 0, read 0, write 0, timeout 431
+Requests/sec:     10.28
+Transfer/sec:    100.60KB
+ 99.000%   19.33ms
+ 99.900%   29.95ms
+ 99.990%   30.14ms
+ 99.999%   30.14ms
+100.000%   30.14ms
+
+  Detailed Percentile spectrum:
+       Value   Percentile   TotalCount 1/(1-Percentile)
+
+       4.575     0.000000            1         1.00
+       5.507     0.100000          113         1.11
+       5.759     0.200000          228         1.25
+       5.995     0.300000          337         1.43
+       6.315     0.400000          452         1.67
+       6.615     0.500000          565         2.00
+       6.779     0.550000          618         2.22
+       6.939     0.600000          676         2.50
+       7.155     0.650000          732         2.86
+       7.387     0.700000          787         3.33
+       7.607     0.750000          843         4.00
+       7.831     0.775000          872         4.44
+       8.103     0.800000          899         5.00
+       8.479     0.825000          928         5.71
+       8.791     0.850000          955         6.67
+       9.375     0.875000          983         8.00
+       9.695     0.887500          997         8.89
+      10.199     0.900000         1011        10.00
+      10.487     0.912500         1025        11.43
+      10.887     0.925000         1039        13.33
+      11.335     0.937500         1055        16.00
+      11.663     0.943750         1060        17.78
+      11.847     0.950000         1067        20.00
+      12.271     0.956250         1074        22.86
+      12.871     0.962500         1081        26.67
+      13.287     0.968750         1088        32.00
+      14.015     0.971875         1092        35.56
+      14.735     0.975000         1095        40.00
+      15.359     0.978125         1099        45.71
+      15.575     0.981250         1102        53.33
+      16.575     0.984375         1106        64.00
+      17.199     0.985938         1108        71.11
+      17.343     0.987500         1109        80.00
+      17.855     0.989062         1111        91.43
+      19.327     0.990625         1113       106.67
+      20.607     0.992188         1115       128.00
+      22.735     0.992969         1116       142.22
+      22.735     0.993750         1116       160.00
+      23.919     0.994531         1117       182.86
+      25.087     0.995313         1118       213.33
+      25.151     0.996094         1119       256.00
+      26.655     0.996484         1120       284.44
+      26.655     0.996875         1120       320.00
+      26.655     0.997266         1120       365.71
+      28.495     0.997656         1121       426.67
+      28.495     0.998047         1121       512.00
+      29.951     0.998242         1122       568.89
+      29.951     0.998437         1122       640.00
+      29.951     0.998633         1122       731.43
+      29.951     0.998828         1122       853.33
+      29.951     0.999023         1122      1024.00
+      30.143     0.999121         1123      1137.78
+      30.143     1.000000         1123          inf
+#[Mean    =        7.346, StdDeviation   =        2.702]
+#[Max     =       30.128, Total count    =         1123]
+#[Buckets =           27, SubBuckets     =         2048]
+----------------------------------------------------------
+  1236 requests in 2.00m, 17.24MB read
+  Socket errors: connect 0, read 0, write 0, timeout 436
+Requests/sec:     10.30
+Transfer/sec:    147.10KB
+
+[1]   Done                    ./wrk -D exp -t 10 -c 20 -d 120 -L -s ./scripts/social-network/compose-post.lua http://localhost:8080/wrk2-api/post/compose -R 10
+[2]-  Done                    ./wrk -D exp -t 10 -c 20 -d 120 -L -s ./scripts/social-network/read-home-timeline.lua http://localhost:8080/wrk2-api/home-timeline/read -R 10
+[3]+  Done                    ./wrk -D exp -t 10 -c 20 -d 120 -L -s ./scripts/social-network/read-user-timeline.lua http://localhost:8080/wrk2-api/user-timeline/read -R 10
+ubuntu@ip-172-31-22-241:~/thesis/DeathStarBench/socialNetwork/wrk2$

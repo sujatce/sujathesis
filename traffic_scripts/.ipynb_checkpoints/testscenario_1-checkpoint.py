@@ -58,7 +58,7 @@ async def normal_traffic(url,loginurl):
 
         #register one or two new accounts every 5 seconds
         #login one to 4 logins every 5 seconds
-        for i in range(24):
+        for i in range(23):
 
             value = randint(1, 5)
 
@@ -67,13 +67,13 @@ async def normal_traffic(url,loginurl):
                 if j%4==0:
                     task = asyncio.ensure_future(register_user(session, url, str(idx)))
                     tasks.append(task)
-                    print("User_"+str(idx) + " registered\n")
+                    print("User_"+str(idx) + " registered")
                 if j==1 or j==2 or j==3 or j==5:
                     task1 = asyncio.ensure_future(login_user(session, loginurl, str(idx)))
                     tasks.append(task1)
-                    print("User_"+str(idx) + " login\n")
+                    print("User_"+str(idx) + " login")
                 resp = await asyncio.gather(*tasks)
-                print("User_"+str(idx) + " completed\n")
+                #print("User_"+str(idx) + " completed")
 
                 idx += 1
             time.sleep(5)
@@ -143,8 +143,8 @@ async def batch_login(url):
     conn = aiohttp.TCPConnector(limit=200)
     async with aiohttp.ClientSession(connector=conn) as session:
 
-        # prepare a batch login of 100 times
-        for i in range(1, 100):
+        # prepare a batch login of 500 times
+        for i in range(1, 500):
             task = asyncio.ensure_future(login_user_for_batch(session, url, str(i)))
             tasks.append(task)
             resp = await asyncio.gather(*tasks)
