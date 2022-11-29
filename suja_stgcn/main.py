@@ -82,5 +82,5 @@ writeToCSV('input_data_test.csv',input_data.get_data('test').shape[0],input_data
 print(f'>> Loading dataset with Mean: {input_data.mean:.2f}, STD: {input_data.std:.2f}')
 
 if __name__ == '__main__':
-    model_train(input_data, blocks, args)
-    model_test(input_data, input_data.get_len('test'), n_his, n_pred, args.inf_mode)
+    #model_train(input_data, blocks, args)
+    model_test(input_data, input_data.get_len('test'), n_his, n_pred, args.inf_mode,n)

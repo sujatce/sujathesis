@@ -9,13 +9,18 @@ import csv
 def writeToCSV(filename,jCount,iCount,td,n_route_count):
     with open(filename, 'wt') as f:
         writer = csv.writer(f)
-        row1 = np.zeros(n_route_count+2)
-        writer.writerow(('id1', 'id2','1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31','32','33','34','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58'))
+        row1 = ["" for x in range(n_route_count+2)]
+        row1[0] = 'id1'
+        row1[1] = 'id2'
+        for indVar in range(n_route_count):
+            row1[indVar+2] = str(indVar+1)
+        writer.writerow(row1)
+        #writer.writerow(('id1', 'id2','1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31','32','33','34','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58'))
         for j in range(jCount):
             for i in range(iCount):
                 row = np.zeros(n_route_count+2)
-                row[0] = j + 1
-                row[1] = i + 1
+                row[0] = str(j + 1)
+                row[1] = str(i + 1)
                 for k in range(n_route_count):
                     row[k+2] = td[j][i][k][0]
                 #row = (
@@ -214,73 +219,83 @@ def gen_batch(inputs, batch_size, dynamic_batch=False, shuffle=False):
 
         yield inputs[slide]
 
-def writeToCSV3Dim(filename,jCount,iCount,td):
+def writeToCSV3Dim(filename,jCount,iCount,td,n_route_count):
     with open(filename, 'wt') as f:
         writer = csv.writer(f)
-        writer.writerow(('id1', 'id2','1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31','32','33','34','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59'))
+        row1 = ["" for x in range(n_route_count+2)]
+        row1[0] = 'id1'
+        row1[1] = 'id2'
+        for indVar in range(n_route_count):
+            row1[indVar+2] = str(indVar+1)
+        #writer.writerow(('id1', 'id2','1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31','32','33','34','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59'))
         for j in range(jCount):
             for i in range(iCount):
-                row = (
-                    j + 1,
-                    i + 1,
-                    td[j][0][i],
-                    td[j][1][i],
-                    td[j][2][i],
-                    td[j][3][i],
-                    td[j][4][i],
-                    td[j][5][i],
-                    td[j][6][i],
-                    td[j][7][i],
-                    td[j][8][i],
-                    td[j][9][i],
-                    td[j][10][i],
-                    td[j][11][i],
-                    td[j][12][i],
-                    td[j][13][i],
-                    td[j][14][i],
-                    td[j][15][i],
-                    td[j][16][i],
-                    td[j][17][i],
-                    td[j][18][i],
-                    td[j][19][i],
-                    td[j][20][i],
-                    td[j][21][i],
-                    td[j][22][i],
-                    td[j][23][i],
-                    td[j][24][i],
-                    td[j][25][i],
-                    td[j][26][i],
-                    td[j][27][i],
-                    td[j][28][i],
-                    td[j][29][i],
-                    td[j][30][i],
-                    td[j][31][i],
-                    td[j][32][i],
-                    td[j][33][i],
-                    td[j][34][i],
-                    td[j][35][i],
-                    td[j][36][i],
-                    td[j][37][i],
-                    td[j][38][i],
-                    td[j][39][i],
-                    td[j][40][i],
-                    td[j][41][i],
-                    td[j][42][i],
-                    td[j][43][i],
-                    td[j][44][i],
-                    td[j][45][i],
-                    td[j][46][i],
-                    td[j][47][i],
-                    td[j][48][i],
-                    td[j][49][i],
-                    td[j][50][i],
-                    td[j][51][i],
-                    td[j][52][i],
-                    td[j][53][i],
-                    td[j][54][i],
-                    td[j][55][i],
-                    td[j][56][i],
-                    td[j][57][i],
-                    td[j][58][i]
-                    )
+                row = np.zeros(n_route_count+2)
+                row[0] = str(j + 1)
+                row[1] = str(i + 1)
+                for k in range(n_route_count):
+                    row[k+2] = td[j][k][i]
+                #row = (
+#                    j + 1,
+#                    i + 1,
+#                    td[j][0][i],
+#                    td[j][1][i],
+#                    td[j][2][i],
+#                    td[j][3][i],
+#                    td[j][4][i],
+#                    td[j][5][i],
+#                    td[j][6][i],
+#                    td[j][7][i],
+#                    td[j][8][i],
+#                    td[j][9][i],
+#                    td[j][10][i],
+#                    td[j][11][i],
+#                    td[j][12][i],
+#                    td[j][13][i],
+#                    td[j][14][i],
+#                    td[j][15][i],
+#                    td[j][16][i],
+#                    td[j][17][i],
+#                    td[j][18][i],
+#                    td[j][19][i],
+#                    td[j][20][i],
+#                    td[j][21][i],
+#                    td[j][22][i],
+#                    td[j][23][i],
+#                    td[j][24][i],
+#                    td[j][25][i],
+#                    td[j][26][i],
+#                    td[j][27][i],
+#                    td[j][28][i],
+#                    td[j][29][i],
+#                    td[j][30][i],
+#                    td[j][31][i],
+#                    td[j][32][i],
+#                    td[j][33][i],
+#                    td[j][34][i],
+#                    td[j][35][i],
+#                    td[j][36][i],
+#                    td[j][37][i],
+#                    td[j][38][i],
+#                    td[j][39][i],
+#                    td[j][40][i],
+#                    td[j][41][i],
+#                    td[j][42][i],
+#                    td[j][43][i],
+#                    td[j][44][i],
+#                    td[j][45][i],
+#                    td[j][46][i],
+#                    td[j][47][i],
+#                    td[j][48][i],
+#                    td[j][49][i],
+#                    td[j][50][i],
+#                    td[j][51][i],
+#                    td[j][52][i],
+#                    td[j][53][i],
+#                    td[j][54][i],
+#                    td[j][55][i],
+#                    td[j][56][i],
+#                    td[j][57][i],
+#                    td[j][58][i]
+#                    )
                 writer.writerow(row)

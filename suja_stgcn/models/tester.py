@@ -108,7 +108,7 @@ def model_inference(sess, pred, inputs, batch_size, n_his, n_pred, step_idx, min
     return min_va_val, min_val, betterPerformance
 
 
-def model_test(inputs, batch_size, n_his, n_pred, inf_mode, load_path='./output/models/'):
+def model_test(inputs, batch_size, n_his, n_pred, inf_mode, n,load_path='./output/models/'):
     '''
     Load and test saved model from the checkpoint.
     :param inputs: instance of class Dataset, data source for test.
@@ -175,8 +175,16 @@ def model_test(inputs, batch_size, n_his, n_pred, inf_mode, load_path='./output/
         y_pred_using_train = y_test
         
         loss_diff = loss_difference(x_test_orig,y_pred_using_train,x_stats)
+        threshold = x_stats['mean'] + 2 * x_stats['std']
+        
         print('loss_diff.shape=',loss_diff.shape)
-        writeToCSV3Dim('loss_diff_1.csv',loss_diff.shape[0],loss_diff.shape[2],loss_diff)
+        writeToCSV3Dim('loss_diff_1.csv',loss_diff.shape[0],loss_diff.shape[2],loss_diff,n)
+        print('threshold = ', threshold)
+        
+        for i in range(loss_diff.shape[0]):
+            for j in range(loss_diff.shape[1]):
+                for k in range(loss_diff.shape[2]):
+                    print('Anomolous node detected ',loss_dff[i][j][k])
         
         evl = evaluation(x_test[0:len_test, step_idx + n_his, :, :], y_test, x_stats)
         print('evl.shape=',evl.shape) #ex: 9
