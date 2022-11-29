@@ -8,6 +8,7 @@ from os.path import join as pjoin
 import tensorflow as tf
 import numpy as np
 import time
+import pandas as pd
 
 
 def multi_pred(sess, y_pred, seq, batch_size, n_his, n_pred, step_idx, dynamic_batch=True):
@@ -24,9 +25,9 @@ def multi_pred(sess, y_pred, seq, batch_size, n_his, n_pred, step_idx, dynamic_b
     :return y_ : tensor, 'sep' [len_inputs, n_route, 1]; 'merge' [step_idx, len_inputs, n_route, 1].
             len_ : int, the length of prediction.
     '''
-    print('Multi_Pred Method invoked')
+    #print('Multi_Pred Method invoked')
     #print(y_pred) #Tensor("strided_slice_4:0", shape=(?, 228, 1), dtype=float32)
-    print('batch_size = ',batch_size,' ; len(seq) = ',len(seq))
+    #print('batch_size = ',batch_size,' ; len(seq) = ',len(seq))
     #print(seq) # This is the input data for which prediction is going to be done
     pred_list = []
     count = 0
@@ -85,30 +86,30 @@ def model_inference(sess, pred, inputs, batch_size, n_his, n_pred, step_idx, min
     if n_his + n_pred > x_val.shape[1]:
         raise ValueError(f'ERROR: the value of n_pred "{n_pred}" exceeds the length limit.')
 
-    print('model_inference method - Now take x_val data, using which predict y_val')
+    #print('model_inference method - Now take x_val data, using which predict y_val')
     y_val, len_val = multi_pred(sess, pred, x_val, batch_size, n_his, n_pred, step_idx)
-    print('Found y_val, now compare x_val with y_val to evaluate how much they match')
+    #print('Found y_val, now compare x_val with y_val to evaluate how much they match')
     evl_val = evaluation(x_val[0:len_val, step_idx + n_his, :, :], y_val, x_stats)
-    print('evaluataed value=',evl_val,'compare that with min_va_val=',min_va_val)
+    #print('evaluataed value=',evl_val,'compare that with min_va_val=',min_va_val)
     
     # chks: indicator that reflects the relationship of values between evl_val and min_va_val.
     chks = evl_val < min_va_val
-    print('chks: indicator that reflects the relationship of values between evl_val and min_va_val = ',chks)
+    #print('chks: indicator that reflects the relationship of values between evl_val and min_va_val = ',chks)
     betterPerformance = False
     # update the metric on test set, if model's performance got improved on the validation.
     if sum(chks):
         betterPerformance = True
-        print('since validation is successful, ie, evaluation values are lesser than minimum validation value, now use the x_test data and do the prediction => y_pred, also make min_va_val as newly found minimum validation value')
+        #print('since validation is successful, ie, evaluation values are lesser than minimum validation value, now use the x_test data and do the prediction => y_pred, also make min_va_val as newly found minimum validation value')
         min_va_val[chks] = evl_val[chks]
         y_pred, len_pred = multi_pred(sess, pred, x_test, batch_size, n_his, n_pred, step_idx)
-        print('Found y_pred using x_test data, now compare x_test with y_pred')
+        #print('Found y_pred using x_test data, now compare x_test with y_pred')
         evl_pred = evaluation(x_test[0:len_pred, step_idx + n_his, :, :], y_pred, x_stats)
-        print('newly evaluated value is now min_val; min_val = evl_pred(x_test vs y_pred) = ',evl_pred)
+        #print('newly evaluated value is now min_val; min_val = evl_pred(x_test vs y_pred) = ',evl_pred)
         min_val = evl_pred
     return min_va_val, min_val, betterPerformance
 
 
-def model_test(inputs, batch_size, n_his, n_pred, inf_mode, n,load_path='./output/models/'):
+def model_test(inputs, batch_size, n_his, n_pred, inf_mode, n, model_num,load_path='./output/models/'):
     '''
     Load and test saved model from the checkpoint.
     :param inputs: instance of class Dataset, data source for test.
@@ -136,7 +137,7 @@ def model_test(inputs, batch_size, n_his, n_pred, inf_mode, n,load_path='./outpu
         pred = test_graph.get_collection('y_pred')
         print(pred);
 
-        print('Identify step index from inf_mode (sep or merge)')
+        #print('Identify step index from inf_mode (sep or merge)')
         if inf_mode == 'sep':
             # for inference mode 'sep', the type of step index is int.
             step_idx = n_pred - 1
@@ -147,58 +148,87 @@ def model_test(inputs, batch_size, n_his, n_pred, inf_mode, n,load_path='./outpu
         else:
             raise ValueError(f'ERROR: test mode "{inf_mode}" is not defined.')
 
-        print('step_idx')
-        print(step_idx)
-        print('Load the x_test data')
+        #print('step_idx')
+        #print(step_idx)
+        #print('Load the x_test data')
         x_test, x_stats = inputs.get_data('test'), inputs.get_stats()
-        print('x_test dimension',x_test.shape)
+        #print('x_test dimension',x_test.shape)
         #writeToCSV('x_test.csv',1340,21,x_test)
-        print(x_stats);
-        print('From x_test data, predict y_test data using the test session from saved model')
+        #print(x_stats);
+        #print('From x_test data, predict y_test data using the test session from saved model')
 
         y_test, len_test = multi_pred(test_sess, pred, x_test, batch_size, n_his, n_pred, step_idx)
-        print('len_test',len_test)
+        #print('len_test',len_test)
         #writeToCSV('y_test_extracted_step_idx.csv',3,1340,y_test)
         #n_his = 0;
-        print('y_test.shape = ',y_test.shape) #ex (3, 1340, 228, 1)
-        print('len_test = ',len_test) #ex 1340
-        print('step_idx = ',step_idx) #ex [2 5 8]
-        print('n_his = ',n_his) #ex 12
-        print('step_idx+n_his=',step_idx + n_his) #ex [14 17 20]
+        #print('y_test.shape = ',y_test.shape) #ex (3, 1340, 228, 1)
+        #print('len_test = ',len_test) #ex 1340
+        #print('step_idx = ',step_idx) #ex [2 5 8]
+        #print('n_his = ',n_his) #ex 12
+        #print('step_idx+n_his=',step_idx + n_his) #ex [14 17 20]
          #Take 14th, 17th and 20th (zero based index) records from x_test
-        print('extract x_test for its step_idx records only. its shape is ',x_test[0:len_test, step_idx + n_his, :, :].shape) #ex (1340, 3, 228, 1)
+        #print('extract x_test for its step_idx records only. its shape is ',x_test[0:len_test, step_idx + n_his, :, :].shape) #ex (1340, 3, 228, 1)
         #writeToCSV('x_test_extracted_step_idx.csv',1340,3,x_test[0:len_test, step_idx + n_his, :, :])
-        print('len(y_test.shape)=',len(y_test.shape)) #ex 4
-        print('Evaluate x_test with y_test for given step index')
+        #print('len(y_test.shape)=',len(y_test.shape)) #ex 4
+        #print('Evaluate x_test with y_test for given step index')
         
         x_test_orig = x_test[0:len_test, step_idx + n_his, :, :]
         y_pred_using_train = y_test
         
         loss_diff = loss_difference(x_test_orig,y_pred_using_train,x_stats)
-        threshold = x_stats['mean'] + 2 * x_stats['std']
+        threshold = (x_stats['mean'] + 2 * x_stats['std']) * 2
         
         print('loss_diff.shape=',loss_diff.shape)
         writeToCSV3Dim('loss_diff_1.csv',loss_diff.shape[0],loss_diff.shape[2],loss_diff,n)
-        print('threshold = ', threshold)
+        print('Prediction error Threshold = ', threshold)
         
+        
+        ms_node_pairs_df = pd.read_csv('../DataPreProcessing/data/V'+str(model_num)+'_step3_myStaticRPCNodeList.csv',
+                                    encoding='latin-1', sep=',', keep_default_na=False)
+        ms_node_pairs = ms_node_pairs_df.values.tolist()
+        print(ms_node_pairs_df.shape)
+        #print(ms_node_pairs)
+        #print(ms_node_pairs[0][0])
+        
+                #Detecting Anomoly traffic nodes
         for i in range(loss_diff.shape[0]):
+            anomoly_df = pd.DataFrame(columns=[#'id',
+                'source', 'destination', 'threshold', 'prediction_error'])
+            count = 0
             for j in range(loss_diff.shape[1]):
+                #if j < 2:
+#                    continue
                 for k in range(loss_diff.shape[2]):
-                    print('Anomolous node detected ',loss_dff[i][j][k])
+                    if loss_diff[i][j][k] > threshold:
+                        #print('i=',i,'j=',j,'k=',k)
+                        count = count+1
+                        print("Anomoly detected at microservices node pair ('",ms_node_pairs[j][3],"','",ms_node_pairs[j][4],"' with loss difference: ",loss_diff[i][j][k],' > Threshold of ',threshold)
+                    anomoly_df = anomoly_df.append({
+                                    #'id': str(j),
+                                'source': ms_node_pairs[j][3],
+                                'destination': ms_node_pairs[j][4],
+                                'threshold': threshold,
+                                'prediction_error': loss_diff[i][j][k]},ignore_index=True)   
+            if count > 0:
+                anomoly_df.to_csv('output/V'+str(model_num)+'_timeslot_'+str(i+1)+'_AnomolyDetectionResults.csv',sep=',', encoding='utf-8')
+        
+        
         
         evl = evaluation(x_test[0:len_test, step_idx + n_his, :, :], y_test, x_stats)
-        print('evl.shape=',evl.shape) #ex: 9
-        print('evl=',evl)
+        #print('evl.shape=',evl.shape) #ex: 9
+        #print('evl=',evl)
         print('Final results, for each tuple records test comparison or evaluation results given below')
         
         if inf_mode == 'sep':
             te = evl
-            print(f'Time Step {tmp_idx}: MAPE {te[0]:7.3}; MAE  {te[1]:4.3f}; RMSE {te[2]:6.3f}.')
+            #print(f'Time Step {tmp_idx}: MAPE {te[0]:7.3}; MAE  {te[1]:4.3f}; RMSE {te[2]:6.3f}.')
+            print(f'Time Step {tmp_idx}: MAE  {te[1]:4.3f}; RMSE {te[2]:6.3f}.')
             
         if inf_mode == 'merge':
             for ix in tmp_idx:
                 te = evl[ix - 2:ix + 1]
-                print(f'Time Step {ix + 1}: MAPE {te[0]:7.3}; MAE  {te[1]:4.3f}; RMSE {te[2]:6.3f}.')
+                #print(f'Time Step {ix + 1}: MAPE {te[0]:7.3}; MAE  {te[1]:4.3f}; RMSE {te[2]:6.3f}.')
+                print(f'Time Step {ix + 1}: MAE  {te[1]:4.3f}; RMSE {te[2]:6.3f}.')
                 
         print(f'Model Test Time {time.time() - start_time:.3f}s')
     print('Testing model finished!')

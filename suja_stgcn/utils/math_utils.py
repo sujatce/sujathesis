@@ -65,18 +65,18 @@ def evaluation(y, y_, x_stats):
     :return: np.ndarray, averaged metric values.
     '''
     dim = len(y_.shape)
-    print(dim)
+    #print(dim)
 
     if dim == 3:
         # single_step case
         v = z_inverse(y, x_stats['mean'], x_stats['std'])
         v_ = z_inverse(y_, x_stats['mean'], x_stats['std'])
-        print(v.shape)
-        print(v_.shape)
+        #print(v.shape)
+        #print(v_.shape)
         return np.array([MAPE(v, v_), MAE(v, v_), RMSE(v, v_)])
     else:
         # multi_step case
-        print('recursive case')
+        #print('recursive case')
         tmp_list = []
         # y -> [time_step, batch_size, n_route, 1]
         y = np.swapaxes(y, 0, 1)
@@ -96,7 +96,7 @@ def loss_difference(y, y_, x_stats):
     :return: np.ndarray, averaged metric values.
     '''
     dim = len(y_.shape)
-    print(dim)
+    #print(dim)
 
     if dim == 3:
         # single_step case
@@ -107,7 +107,7 @@ def loss_difference(y, y_, x_stats):
         return abs(v - v_)
     else:
         # multi_step case
-        print('recursive case')
+        #print('recursive case')
         tmp_list = []
         # y -> [time_step, batch_size, n_route, 1]
         y = np.swapaxes(y, 0, 1)

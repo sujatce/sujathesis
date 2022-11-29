@@ -122,16 +122,16 @@ def seq_gen(len_seq, data_seq, offset, n_frame, n_route, day_slot, C_0=1):
     :return: np.ndarray, [len_seq, n_frame, n_route, C_0].
     '''
     n_slot = day_slot - n_frame + 1
-    print('Length of target data sequence, len_seq=',len_seq)
-    print('Number of frame within a standard sequence unit, n_frame=',n_frame)
-    print('day_slot=',day_slot)
-    print('n_slot=day_slot-n_frame+1=',n_slot)
-    print('n_route=',n_route)
-    print('Starting index of different dataset type, offset=',offset)
-    print('C_0: size of the input channel=',C_0)
+    #print('Length of target data sequence, len_seq=',len_seq)
+    #print('Number of frame within a standard sequence unit, n_frame=',n_frame)
+    #print('day_slot=',day_slot)
+    #print('n_slot=day_slot-n_frame+1=',n_slot)
+    #print('n_route=',n_route)
+    #print('Starting index of different dataset type, offset=',offset)
+    #print('C_0: size of the input channel=',C_0)
     
     tmp_seq = np.zeros((len_seq * n_slot, n_frame, n_route, C_0))
-    print('tmp_seq.shape=',tmp_seq.shape)
+    #print('tmp_seq.shape=',tmp_seq.shape)
     #print(tmp_seq)
     
     for i in range(len_seq): #sequence of dataset length (train = 34, validation = 5, test = 5)
@@ -167,7 +167,7 @@ def data_gen(file_path, data_config, n_route, n_frame=5, day_slot=20): #day_slot
     except FileNotFoundError:
         print(f'ERROR: input file was not found in {file_path}.')
 
-    print(data_seq.shape)
+    #print(data_seq.shape)
     #writeToCSV('data_seq_orig.csv',data_seq,
     seq_train = seq_gen(n_train, data_seq, 0, n_frame, n_route, day_slot)
     seq_val = seq_gen(n_val, data_seq, n_train, n_frame, n_route, day_slot)
@@ -175,7 +175,7 @@ def data_gen(file_path, data_config, n_route, n_frame=5, day_slot=20): #day_slot
 
     # x_stats: dict, the stats for the train dataset, including the value of mean and standard deviation.
     x_stats = {'mean': np.mean(seq_train), 'std': np.std(seq_train)}
-    print(x_stats)
+    #print(x_stats)
 
     #print(seq_train.shape);
     #writeToCSV('seq_train.csv',9112,21,seq_train);

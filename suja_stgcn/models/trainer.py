@@ -9,6 +9,7 @@ import numpy as np
 import time
 
 
+
 def model_train(inputs, blocks, args, sum_path='./output/tensorboard'):
     '''
     Train the base model.
@@ -23,22 +24,22 @@ def model_train(inputs, blocks, args, sum_path='./output/tensorboard'):
     # Placeholder for model training
     x = tf.placeholder(tf.float32, [None, n_his + 1, n, 1], name='data_input')
     keep_prob = tf.placeholder(tf.float32, name='keep_prob')
-    print('tf placeholder x(data_input) shape - ',x.shape)
-    print('tf placeholder keep_prob shape - ',keep_prob.shape)
+    #print('tf placeholder x(data_input) shape - ',x.shape)
+    #print('tf placeholder keep_prob shape - ',keep_prob.shape)
     
     # Define model loss
-    print('building model.....using x,n_his,Ks,Kt,blocks,keep_prob',x,n_his,Ks,Kt,blocks,keep_prob)
+    #print('building model.....using x,n_his,Ks,Kt,blocks,keep_prob',x,n_his,Ks,Kt,blocks,keep_prob)
     train_loss, pred = build_model(x, n_his, Ks, Kt, blocks, keep_prob)
-    print('train_loss shape',train_loss.shape)
-    print('pred shape',pred.shape)
+    #print('train_loss shape',train_loss.shape)
+    #print('pred shape',pred.shape)
     tf.summary.scalar('train_loss', train_loss)
     copy_loss = tf.add_n(tf.get_collection('copy_loss'))
     tf.summary.scalar('copy_loss', copy_loss)
-    print(copy_loss.shape)
+    #print(copy_loss.shape)
     # Learning rate settings
     global_steps = tf.Variable(0, trainable=False)
     len_train = inputs.get_len('train')
-    print('Total training records = ',len_train)
+    #print('Total training records = ',len_train)
     if len_train % batch_size == 0:
         epoch_step = len_train / batch_size
     else:
@@ -76,8 +77,8 @@ def model_train(inputs, blocks, args, sum_path='./output/tensorboard'):
             min_val = min_va_val = np.array([4e1, 1e5, 1e5] * len(step_idx))
         else:
             raise ValueError(f'ERROR: test mode "{inf_mode}" is not defined.')
-        print('step_index=',step_idx)
-        print('min_val=',min_val)
+        #print('step_index=',step_idx)
+        #print('min_val=',min_val)
             
         for i in range(epoch):
             start_time = time.time()
@@ -100,12 +101,12 @@ def model_train(inputs, blocks, args, sum_path='./output/tensorboard'):
             print('After every Epoch run, validate the data with so-far trained epoch cycles, validation cycle starts')
             min_va_val, min_val, betterPerformance = \
                 model_inference(sess, pred, inputs, batch_size, n_his, n_pred, step_idx, min_va_val, min_val)
-            print('After calling new model inference, value of min_va_val=',min_va_val,' and min_val = ',min_val, ' and betterPerformance=',betterPerformance)
+            #print('After calling new model inference, value of min_va_val=',min_va_val,' and min_val = ',min_val, ' and betterPerformance=',betterPerformance)
 
             if inf_mode == 'sep':
                 va, te = min_va_val, min_val
                 print(f'Time Step {tmp_idx}: '
-                      f'MAPE {va[0]:7.3f}, {te[0]:7.3f}; '
+                   #   f'MAPE {va[0]:7.3f}, {te[0]:7.3f}; '
                       f'MAE  {va[1]:4.3f}, {te[1]:4.3f}; '
                       f'RMSE {va[2]:6.3f}, {te[2]:6.3f}.')
                 
@@ -115,13 +116,13 @@ def model_train(inputs, blocks, args, sum_path='./output/tensorboard'):
                     print(va)
                     print(te)
                     print(f'Time Step {ix + 1}: '
-                          f'MAPE {va[0]:7.3f}, {te[0]:7.3f}; '
+                      #    f'MAPE {va[0]:7.3f}, {te[0]:7.3f}; '
                           f'MAE  {va[1]:4.3f}, {te[1]:4.3f}; '
                           f'RMSE {va[2]:6.3f}, {te[2]:6.3f}.')
                     
             print(f'Epoch {i:2d} Inference Time {time.time() - start_time:.3f}s')
 
-            if (i + 1) % args.save == 0 and betterPerformance: #make sure only the betterPerformance model is saved as the latest check point
+            if (i + 1) % args.save == 0:# and betterPerformance: #make sure only the betterPerformance model is saved as the latest check point
                 print('save the model, for every args.save==',args.save)
                 model_save(sess, global_steps, 'STGCN')
         writer.close()
