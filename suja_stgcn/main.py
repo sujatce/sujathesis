@@ -19,11 +19,12 @@ from models.tester import model_test
 
 import argparse
 
+
 parser = argparse.ArgumentParser()
 parser.add_argument('--n_route', type=int, default=59)
 parser.add_argument('--n_his', type=int, default=12) #previous = 12
 parser.add_argument('--n_pred', type=int, default=9) #previous = 9
-test_number = 30
+test_number = 50
 day_slot = 25
 n_train, n_val, n_test = 6, 1, 1
 parser.add_argument('--batch_size', type=int, default=5)
@@ -39,11 +40,6 @@ parser.add_argument('--inf_mode', type=str, default='sep') #merge
 args = parser.parse_args()
 print(f'Training configs: {args}')
 
-n, n_his, n_pred = args.n_route, args.n_his, args.n_pred
-Ks, Kt = args.ks, args.kt
-# blocks: settings of channel size in st_conv_blocks / bottleneck design
-blocks = [[1, 32, 64], [64, 32, 128]]
-
 # Load wighted adjacency matrix W
 if args.graph == 'default':
     W = weight_matrix(pjoin('./dataset', f'ms_traffic_W_{test_number}.csv'))
@@ -52,6 +48,14 @@ else:
     W = weight_matrix(pjoin('./dataset', args.graph))
 print(W.shape)
 #np.savetxt("ms_traffic_Weight_matrix.csv", W, delimiter=",")
+args.n_route = W.shape[0]
+
+n, n_his, n_pred = args.n_route, args.n_his, args.n_pred
+Ks, Kt = args.ks, args.kt
+# blocks: settings of channel size in st_conv_blocks / bottleneck design
+blocks = [[1, 32, 64], [64, 32, 128]]
+
+
 
 # Calculate graph kernel
 L = scaled_laplacian(W)
@@ -72,9 +76,9 @@ input_data = data_gen(pjoin('./dataset', data_file), (n_train, n_val, n_test), n
 print('train.shape=',input_data.get_data('train').shape)
 print('val.shape=',input_data.get_data('val').shape)
 print('test.shape=',input_data.get_data('test').shape)
-writeToCSV('input_data_train.csv',input_data.get_data('train').shape[0],input_data.get_data('train').shape[1],input_data.get_data('train'))
-writeToCSV('input_data_val.csv',input_data.get_data('val').shape[0],input_data.get_data('val').shape[1],input_data.get_data('val'))
-writeToCSV('input_data_test.csv',input_data.get_data('test').shape[0],input_data.get_data('test').shape[1],input_data.get_data('test'))
+writeToCSV('input_data_train.csv',input_data.get_data('train').shape[0],input_data.get_data('train').shape[1],input_data.get_data('train'),n)
+writeToCSV('input_data_val.csv',input_data.get_data('val').shape[0],input_data.get_data('val').shape[1],input_data.get_data('val'),n)
+writeToCSV('input_data_test.csv',input_data.get_data('test').shape[0],input_data.get_data('test').shape[1],input_data.get_data('test'),n)
 print(f'>> Loading dataset with Mean: {input_data.mean:.2f}, STD: {input_data.std:.2f}')
 
 if __name__ == '__main__':

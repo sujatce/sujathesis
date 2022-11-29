@@ -14,7 +14,7 @@ startTimeMillis: >now-2d
 /home/ubuntu/.local/bin/es2csv -q 'startTime:[1669420762829319 TO 1669420762829339]' -f traceID spanID process.serviceName operationName startTimeMillis startTime tags references -S startTime -u http://18.212.223.207:9200 -i jaeger-span-2022-11-25 -D span -o /home/ubuntu/sujathesis/extracted_files/traffictrace.csv
 
 
-/home/ubuntu/.local/bin/es2csv -q 'startTimeMillis:>now-2d' -f traceID spanID process.serviceName operationName startTimeMillis startTime tags references -S startTime -u http://54.197.37.208:9200 -i jaeger-span-2022-11-25 -D span -o /home/ubuntu/sujathesis/extracted_files/traffictrace.csv
+/home/ubuntu/.local/bin/es2csv -q 'startTimeMillis:>now-15m' -f traceID spanID process.serviceName operationName startTimeMillis startTime tags references -S startTime -u http://54.227.178.96:9200 -i jaeger-span-2022-11-29 -D span -o /home/ubuntu/sujathesis/DataPreProcessing/data/input/trafficData_V50.csv
 
 /home/ubuntu/thesis/sujathesis/traffic_scripts/professor_new_scenario.sh
 
@@ -25,3 +25,4 @@ startTimeMillis: >now-2d
 pip install tensorboard
 tensorboard --logdir sujathesis/suja_stgcn/output/tensorboard/train
 
+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
