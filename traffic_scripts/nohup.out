@@ -1,0 +1,502 @@
+/home/ubuntu/thesis/sujathesis/traffic_scripts/testscenario_1.py:164: DeprecationWarning: There is no current event loop
+  loop = asyncio.get_event_loop()
+/home/ubuntu/thesis/sujathesis/traffic_scripts/testscenario_1.py:165: DeprecationWarning: There is no current event loop
+  future = asyncio.ensure_future(normal_traffic(addr,login_addr))
+/home/ubuntu/thesis/sujathesis/traffic_scripts/testscenario_1.py:164: DeprecationWarning: There is no current event loop
+  loop = asyncio.get_event_loop()
+/home/ubuntu/thesis/sujathesis/traffic_scripts/testscenario_1.py:165: DeprecationWarning: There is no current event loop
+  future = asyncio.ensure_future(normal_traffic(addr,login_addr))
+Normal registration traffic
+User_970 registered
+
+User_970 completed
+
+User_971 login
+
+User_971 completed
+
+User_972 registered
+
+User_972 login
+
+User_972 completed
+
+User_973 login
+
+User_973 completed
+
+User_974 registered
+
+User_974 completed
+
+User_975 registered
+
+User_975 completed
+
+Traceback (most recent call last):
+  File "/home/ubuntu/thesis/sujathesis/traffic_scripts/testscenario_1.py", line 166, in <module>
+    loop.run_until_complete(future)
+  File "/usr/lib/python3.10/asyncio/base_events.py", line 633, in run_until_complete
+    self.run_forever()
+  File "/usr/lib/python3.10/asyncio/base_events.py", line 600, in run_forever
+    self._run_once()
+  File "/usr/lib/python3.10/asyncio/base_events.py", line 1896, in _run_once
+    handle._run()
+  File "/usr/lib/python3.10/asyncio/events.py", line 80, in _run
+    self._context.run(self._callback, *self._args)
+  File "/home/ubuntu/thesis/sujathesis/traffic_scripts/testscenario_1.py", line 79, in normal_traffic
+    time.sleep(5)
+KeyboardInterrupt
+/home/ubuntu/thesis/sujathesis/traffic_scripts/testscenario_1.py:174: DeprecationWarning: There is no current event loop
+  loop = asyncio.get_event_loop()
+/home/ubuntu/thesis/sujathesis/traffic_scripts/testscenario_1.py:175: DeprecationWarning: There is no current event loop
+  future = asyncio.ensure_future(batch_login(login_addr))
+Normal registration traffic
+User_970 registered
+
+User_970 completed
+
+User_971 login
+
+User_971 completed
+
+User_972 registered
+
+User_972 completed
+
+User_973 registered
+
+User_973 completed
+
+User_974 login
+
+User_974 completed
+
+User_975 registered
+
+User_975 login
+
+User_975 completed
+
+User_976 registered
+
+User_976 completed
+
+User_977 login
+
+User_977 completed
+
+User_978 registered
+
+User_978 login
+
+User_978 completed
+
+User_979 login
+
+User_979 completed
+
+User_980 registered
+
+User_980 completed
+
+User_981 registered
+
+User_981 completed
+
+User_982 login
+
+User_982 completed
+
+User_983 registered
+
+User_983 login
+
+User_983 completed
+
+User_984 registered
+
+User_984 completed
+
+User_985 login
+
+User_985 completed
+
+User_986 registered
+
+User_986 completed
+
+User_987 login
+
+User_987 completed
+
+User_988 registered
+
+User_988 login
+
+User_988 completed
+
+User_989 registered
+
+User_989 completed
+
+User_990 login
+
+User_990 completed
+
+User_991 registered
+
+User_991 login
+
+User_991 completed
+
+User_992 login
+
+User_992 completed
+
+User_993 registered
+
+User_993 completed
+
+User_994 registered
+
+User_994 completed
+
+User_995 login
+
+User_995 completed
+
+User_996 registered
+
+User_996 login
+
+User_996 completed
+
+User_997 login
+
+User_997 completed
+
+User_998 registered
+
+User_998 completed
+
+User_999 login
+
+User_999 completed
+
+User_1000 registered
+
+User_1000 login
+
+User_1000 completed
+
+User_1001 login
+
+User_1001 completed
+
+User_1002 registered
+
+User_1002 completed
+
+User_1003 login
+
+User_1003 completed
+
+User_1004 registered
+
+User_1004 login
+
+User_1004 completed
+
+User_1005 registered
+
+User_1005 completed
+
+User_1006 login
+
+User_1006 completed
+
+User_1007 registered
+
+User_1007 login
+
+User_1007 completed
+
+User_1008 registered
+
+User_1008 completed
+
+User_1009 registered
+
+User_1009 completed
+
+User_1010 login
+
+User_1010 completed
+
+User_1011 registered
+
+User_1011 login
+
+User_1011 completed
+
+User_1012 login
+
+User_1012 completed
+
+User_1013 registered
+
+User_1013 completed
+
+User_1014 login
+
+User_1014 completed
+
+User_1015 registered
+
+User_1015 login
+
+User_1015 completed
+
+User_1016 registered
+
+User_1016 completed
+
+User_1017 login
+
+User_1017 completed
+
+User_1018 registered
+
+User_1018 login
+
+User_1018 completed
+
+User_1019 login
+
+User_1019 completed
+
+User_1020 registered
+
+User_1020 completed
+
+User_1021 login
+
+User_1021 completed
+
+User_1022 registered
+
+User_1022 completed
+
+User_1023 login
+
+User_1023 completed
+
+User_1024 registered
+
+User_1024 login
+
+User_1024 completed
+
+User_1025 login
+
+User_1025 completed
+
+User_1026 registered
+
+User_1026 completed
+
+User_1027 login
+
+User_1027 completed
+
+User_1028 registered
+
+User_1028 login
+
+User_1028 completed
+
+User_1029 registered
+
+User_1029 completed
+
+User_1030 login
+
+User_1030 completed
+
+User_1031 registered
+
+User_1031 login
+
+User_1031 completed
+
+User_1032 login
+
+User_1032 completed
+
+User_1033 registered
+
+User_1033 completed
+
+User_1034 registered
+
+User_1034 completed
+
+User_1035 login
+
+User_1035 completed
+
+User_1036 registered
+
+User_1036 login
+
+User_1036 completed
+
+User_1037 registered
+
+User_1037 completed
+
+User_1038 login
+
+User_1038 completed
+
+User_1039 registered
+
+User_1039 completed
+
+User_1040 login
+
+User_1040 completed
+
+User_1041 registered
+
+User_1041 login
+
+User_1041 completed
+
+User_1042 login
+
+User_1042 completed
+
+User_1043 registered
+
+User_1043 completed
+
+User_1044 login
+
+User_1044 completed
+
+User_1045 registered
+
+User_1045 login
+
+User_1045 completed
+
+User_1046 login
+
+User_1046 completed
+
+
+
+Batch Login Attack
+User_1 login
+User_2 login
+User_3 login
+User_4 login
+User_5 login
+User_6 login
+User_7 login
+User_8 login
+User_9 login
+User_10 login
+User_11 login
+User_12 login
+User_13 login
+User_14 login
+User_15 login
+User_16 login
+User_17 login
+User_18 login
+User_19 login
+User_20 login
+User_21 login
+User_22 login
+User_23 login
+User_24 login
+User_25 login
+User_26 login
+User_27 login
+User_28 login
+User_29 login
+User_30 login
+User_31 login
+User_32 login
+User_33 login
+User_34 login
+User_35 login
+User_36 login
+User_37 login
+User_38 login
+User_39 login
+User_40 login
+User_41 login
+User_42 login
+User_43 login
+User_44 login
+User_45 login
+User_46 login
+User_47 login
+User_48 login
+User_49 login
+User_50 login
+User_51 login
+User_52 login
+User_53 login
+User_54 login
+User_55 login
+User_56 login
+User_57 login
+User_58 login
+User_59 login
+User_60 login
+User_61 login
+User_62 login
+User_63 login
+User_64 login
+User_65 login
+User_66 login
+User_67 login
+User_68 login
+User_69 login
+User_70 login
+User_71 login
+User_72 login
+User_73 login
+User_74 login
+User_75 login
+User_76 login
+User_77 login
+User_78 login
+User_79 login
+User_80 login
+User_81 login
+User_82 login
+User_83 login
+User_84 login
+User_85 login
+User_86 login
+User_87 login
+User_88 login
+User_89 login
+User_90 login
+User_91 login
+User_92 login
+User_93 login
+User_94 login
+User_95 login
+User_96 login
+User_97 login
+User_98 login
+User_99 login
+99
+Total Time: 121 seconds
