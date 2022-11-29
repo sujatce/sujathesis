@@ -8,9 +8,9 @@ from os.path import join as pjoin
 
 import tensorflow as tf
 
-config = tf.ConfigProto()
+config = tf.compat.v1.ConfigProto()
 config.gpu_options.allow_growth = True
-tf.Session(config=config)
+tf.compat.v1.Session(config=config)
 
 from utils.math_graph import *
 from data_loader.data_utils import *
@@ -24,7 +24,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--n_route', type=int, default=59)
 parser.add_argument('--n_his', type=int, default=12) #previous = 12
 parser.add_argument('--n_pred', type=int, default=9) #previous = 9
-test_number = 30
+test_number = 50
 day_slot = 25
 n_train, n_val, n_test = 6, 1, 1
 parser.add_argument('--batch_size', type=int, default=5)
@@ -66,7 +66,7 @@ print(L.shape)
 Lk = cheb_poly_approx(L, Ks, n)
 np.savetxt("cheb_poly.csv", Lk, delimiter=",")
 #print(Lk.shape)
-tf.add_to_collection(name='graph_kernel', value=tf.cast(tf.constant(Lk), tf.float32))
+tf.compat.v1.add_to_collection(name='graph_kernel', value=tf.cast(tf.constant(Lk), tf.float32))
 
 # Data Preprocessing
 data_file = f'ms_traffic_V_{test_number}.csv'
@@ -82,5 +82,5 @@ writeToCSV('input_data_test.csv',input_data.get_data('test').shape[0],input_data
 print(f'>> Loading dataset with Mean: {input_data.mean:.2f}, STD: {input_data.std:.2f}')
 
 if __name__ == '__main__':
-    #model_train(input_data, blocks, args)
+    model_train(input_data, blocks, args, test_number)
     model_test(input_data, input_data.get_len('test'), n_his, n_pred, args.inf_mode,n,test_number)

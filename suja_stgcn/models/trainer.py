@@ -3,14 +3,59 @@ from data_loader.data_utils import writeToCSV
 from models.tester import model_inference
 from models.base_model import build_model, model_save
 from os.path import join as pjoin
+import matplotlib.pyplot as plt
 
 import tensorflow as tf
 import numpy as np
 import time
+import os
+import sys
 
+def plot_eval_metrics(training_loss, validating_loss, test_num):
+        # define and create a MAE metric directory
+        plot_dir = 'mae_loss_plots/'
+        loss_file = 'V'+str(test_num)+'_mae_training_loss.png'
+        file_name = os.path.join(plot_dir, loss_file)
+        #os.makedirs(loss_dir)
 
+        # define a metric file
+        
+        if os.path.exists(file_name):
+            os.remove(file_name)
 
-def model_train(inputs, blocks, args, sum_path='./output/tensorboard'):
+        plt.figure()
+        plt.plot(training_loss, label='training_loss')
+        #plt.plot(validating_loss, label='validating loss')
+        plt.title('STGCN - Chart for training loss - Test No - '+str(test_num))
+        plt.xlabel('epoch')
+        plt.ylabel('Loss')
+        plt.legend(loc='upper right')
+        plt.savefig(file_name)
+        plt.show()
+
+def plot_mae_validation_loss(validating_loss, test_num):
+        # define and create a MAE metric directory
+        plot_dir = 'mae_loss_plots/'
+        loss_file = 'V'+str(test_num)+'_mae_validation_loss.png'
+        file_name = os.path.join(plot_dir, loss_file)
+        #os.makedirs(loss_dir)
+
+        # define a metric file
+        
+        if os.path.exists(file_name):
+            os.remove(file_name)
+
+        plt.figure()
+        #plt.plot(training_loss, label='training_loss')
+        plt.plot(validating_loss, label='validating loss')
+        plt.title('STGCN - Chart for validation loss - Test No - '+str(test_num))
+        plt.xlabel('epoch')
+        plt.ylabel('Loss')
+        plt.legend(loc='upper right')
+        plt.savefig(file_name)
+        plt.show()
+
+def model_train(inputs, blocks, args, test_number,sum_path='./output/tensorboard'):
     '''
     Train the base model.
     :param inputs: instance of class Dataset, data source for training.
@@ -20,10 +65,14 @@ def model_train(inputs, blocks, args, sum_path='./output/tensorboard'):
     n, n_his, n_pred = args.n_route, args.n_his, args.n_pred
     Ks, Kt = args.ks, args.kt
     batch_size, epoch, inf_mode, opt = args.batch_size, args.epoch, args.inf_mode, args.opt
+    
+    # define arrays for training and validation loss
+    epoch_train_loss = []
+    epoch_validate_loss = []
 
     # Placeholder for model training
-    x = tf.placeholder(tf.float32, [None, n_his + 1, n, 1], name='data_input')
-    keep_prob = tf.placeholder(tf.float32, name='keep_prob')
+    x = tf.compat.v1.placeholder(tf.float32, [None, n_his + 1, n, 1], name='data_input')
+    keep_prob = tf.compat.v1.placeholder(tf.float32, name='keep_prob')
     #print('tf placeholder x(data_input) shape - ',x.shape)
     #print('tf placeholder keep_prob shape - ',keep_prob.shape)
     
@@ -32,9 +81,9 @@ def model_train(inputs, blocks, args, sum_path='./output/tensorboard'):
     train_loss, pred = build_model(x, n_his, Ks, Kt, blocks, keep_prob)
     #print('train_loss shape',train_loss.shape)
     #print('pred shape',pred.shape)
-    tf.summary.scalar('train_loss', train_loss)
-    copy_loss = tf.add_n(tf.get_collection('copy_loss'))
-    tf.summary.scalar('copy_loss', copy_loss)
+    tf.compat.v1.summary.scalar('train_loss', train_loss)
+    copy_loss = tf.add_n(tf.compat.v1.get_collection('copy_loss'))
+    tf.compat.v1.summary.scalar('copy_loss', copy_loss)
     #print(copy_loss.shape)
     # Learning rate settings
     global_steps = tf.Variable(0, trainable=False)
@@ -48,23 +97,23 @@ def model_train(inputs, blocks, args, sum_path='./output/tensorboard'):
     # Learning rate decay with rate 0.7 every 5 epochs.
     lr = tf.train.exponential_decay(args.lr, global_steps, decay_steps=5 * epoch_step, decay_rate=0.7, staircase=True)
     print('args.lr = ',args.lr,'global_steps = ',global_steps,'decay_steps = ',5*epoch_step,'decay_rate=0.7')
-    tf.summary.scalar('learning_rate', lr)
+    tf.compat.v1.summary.scalar('learning_rate', lr)
     print('learning rate = ',lr)
-    step_op = tf.assign_add(global_steps, 1)
+    step_op = tf.compat.v1.assign_add(global_steps, 1)
     with tf.control_dependencies([step_op]):
         if opt == 'RMSProp':
-            train_op = tf.train.RMSPropOptimizer(lr).minimize(train_loss)
+            train_op = tf.compat.v1.train.RMSPropOptimizer(lr).minimize(train_loss)
         elif opt == 'ADAM':
-            train_op = tf.train.AdamOptimizer(lr).minimize(train_loss)
+            train_op = tf.compat.v1.train.AdamOptimizer(lr).minimize(train_loss)
         else:
             raise ValueError(f'ERROR: optimizer "{opt}" is not defined.')
 
-    merged = tf.summary.merge_all()
+    merged = tf.compat.v1.summary.merge_all()
 
-    with tf.Session() as sess:
-        writer = tf.summary.FileWriter(pjoin(sum_path, 'train'), sess.graph)
+    with tf.compat.v1.Session() as sess:
+        writer = tf.compat.v1.summary.FileWriter(pjoin(sum_path, 'train'), sess.graph)
         print('tensorflow summary graph is written in file - ',pjoin(sum_path, 'train'))
-        sess.run(tf.global_variables_initializer())
+        sess.run(tf.compat.v1.global_variables_initializer())
 
         if inf_mode == 'sep':
             # for inference mode 'sep', the type of step index is int.
@@ -92,6 +141,7 @@ def model_train(inputs, blocks, args, sum_path='./output/tensorboard'):
                         sess.run([train_loss, copy_loss],
                                  feed_dict={x: x_batch[:, 0:n_his + 1, :, :], keep_prob: 1.0})
                     print(f'Epoch {i:2d}, Step {j:3d}: [{loss_value[0]:.3f}, {loss_value[1]:.3f}]')
+                    epoch_train_loss.append(loss_value[0])
                     #print('train_loss = ',train_loss) #train_loss =  Tensor("L2Loss_2:0", shape=(), dtype=float32)
                     #print('copy_loss = ',copy_loss) #copy_loss =  Tensor("L2Loss_1:0", shape=(), dtype=float32)
                     #print('loss_value = ',loss_value) #loss_value =  [51.06814, 45.636517] #This is same as what's printed on Epoch step above.
@@ -105,25 +155,34 @@ def model_train(inputs, blocks, args, sum_path='./output/tensorboard'):
 
             if inf_mode == 'sep':
                 va, te = min_va_val, min_val
-                print(f'Time Step {tmp_idx}: '
+                print(f'ValidationEval Step {tmp_idx}: '
                    #   f'MAPE {va[0]:7.3f}, {te[0]:7.3f}; '
                       f'MAE  {va[1]:4.3f}, {te[1]:4.3f}; '
                       f'RMSE {va[2]:6.3f}, {te[2]:6.3f}.')
+                epoch_validate_loss.append(va[1])
                 
             if inf_mode == 'merge':
+                i = 0
                 for ix in tmp_idx:
+                    i = i + 1
                     va, te = min_va_val[ix - 2:ix + 1], min_val[ix - 2:ix + 1]
-                    print(va)
-                    print(te)
-                    print(f'Time Step {ix + 1}: '
+                    #print(va)
+                    #print(te)
+                    print(f'ValidationEval Step {ix + 1}: '
                       #    f'MAPE {va[0]:7.3f}, {te[0]:7.3f}; '
                           f'MAE  {va[1]:4.3f}, {te[1]:4.3f}; '
                           f'RMSE {va[2]:6.3f}, {te[2]:6.3f}.')
+                    if i == 1:
+                        epoch_validate_loss.append(va[1])
                     
+            
+            
             print(f'Epoch {i:2d} Inference Time {time.time() - start_time:.3f}s')
 
             if (i + 1) % args.save == 0:# and betterPerformance: #make sure only the betterPerformance model is saved as the latest check point
                 print('save the model, for every args.save==',args.save)
                 model_save(sess, global_steps, 'STGCN')
         writer.close()
+        plot_eval_metrics(epoch_train_loss, epoch_validate_loss,test_number)
+        plot_mae_validation_loss(epoch_validate_loss,test_number)
     print('Training model finished!')

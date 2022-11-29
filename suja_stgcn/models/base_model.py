@@ -45,6 +45,6 @@ def model_save(sess, global_steps, model_name, save_path='./output/models/'):
     :param save_path: str, the path of saved model.
     :return:
     '''
-    saver = tf.train.Saver(max_to_keep=3)
+    saver = tf.compat.v1.train.Saver(max_to_keep=3)
     prefix_path = saver.save(sess, pjoin(save_path, model_name), global_step=global_steps)
     print(f'<< Saving model to {prefix_path} ...')
