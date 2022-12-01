@@ -5,7 +5,7 @@ from step4_GenerateAdjacencyMatrix import step4
 from step5_RecordNodeInstances import step5
 from step6_ReturnRPCTrafficFile import step6
 
-test_number = 30
+test_number = 50
 n_time_interval = 200
 #filename = "data/bruteForceAttackData_V"+str(test_number)+".csv"
 filename = "data/input/trafficData_V"+str(test_number)+".csv"

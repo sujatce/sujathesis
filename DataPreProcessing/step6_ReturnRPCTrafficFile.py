@@ -171,6 +171,13 @@ def step6(model_number,n_time_interval,out_filename):
 
     # assign the datetime objects to the fixed time periods
     rpcNodeTrafficDF.columns = date_time_list
+    
+    # store traffic dataframe in new csv file
+    #store = pd.HDFStore('../suja_dcrnn/data/DSB_Data/myRPCNodeTraffic_V'+str(model_number)+'.h5')
+
+    # adding and storing data frame to the HDF5 file
+    #store.put('nodeTrafficDF', rpcNodeTrafficDF, format='table')
+    #store.close()
 
     rpcNodeTrafficDF.T.to_csv('data/output/ms_traffic_V'+str(model_number)+'.csv',
                             sep=',', encoding='utf-8', index_label='node_ID')

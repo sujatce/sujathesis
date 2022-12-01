@@ -43,5 +43,5 @@ def step4(model_number,out_filename):
     distanceMatrix = get_adjacency_matrix(model_number,out_filename)
 
     # write the distance matrix to pickle file in byte form
-    #with open('data/output/adj_mx_V'+str(model_number)+'.pkl', 'wb') as out_File:
-    #    pickle.dump(distanceMatrix, out_File, protocol=2)
+    with open('../suja_dcrnn/data/DSB_Data/graph/adj_mx_V'+str(model_number)+'.pkl', 'wb') as out_File:
+        pickle.dump(distanceMatrix, out_File, protocol=2)
